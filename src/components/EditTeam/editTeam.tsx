@@ -7,20 +7,27 @@ import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../UI/Button/CancelButton";
-import { addTeam } from "../../store/team/asyncAction";
+import { editTeam } from "../../store/team/asyncAction";
 import { AdminLayout } from "../Layout";
 import { TeamInterface } from "../../store/team/types";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 
-
-const AddTeam: React.FC = () => {
-  const { register, handleSubmit, watch,  formState: { errors }} = useForm<TeamInterface>();
+const EditTeam: React.FC = () => {
+  const { teamID }: { teamID: string } = useParams();
+  console.log(teamID);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<TeamInterface>();
   const [imageUrl, setImageUrl] = useState("");
   const dispatch = useAppDispatch();
-
   const onSubmit = (data: TeamInterface) => {
-    console.log("kek")
-    dispatch(addTeam(data));
+    data.id = Number(teamID);
+    console.log(data);
+    dispatch(editTeam(data));
   };
   const image = watch("image");
   useEffect(() => {
@@ -46,14 +53,13 @@ const AddTeam: React.FC = () => {
     asyncConvert();
   }, [image]);
 
-
   return (
     <AdminLayout hasHeader={true}>
       <>
         <CardHeader
           isTeam={true}
           isPlayer={false}
-          name={"Add new team"}
+          name={`Edit Team ${teamID}`}
           itemID={0}
         />
         <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
@@ -66,14 +72,10 @@ const AddTeam: React.FC = () => {
               </ImageContainer>
             </LeftAuthWrap>
             <RightAuthWrap>
-              <label htmlFor=""></label>
-              <Input {...register("name",{validate:(value) => false})} name="name" type="text" />
-              {errors.name && <p>dffdgfd</p>}
+              <Input {...register} name="name" type="text" />
               <Input {...register} name="division" type="text" />
               <Input {...register} name="conference" type="text" />
               <Input {...register} name="foundationYear" type="text" />
-
-
 
               <ButtonsWrapper>
                 <CancelButton />
@@ -88,7 +90,7 @@ const AddTeam: React.FC = () => {
   );
 };
 
-export default AddTeam;
+export default EditTeam;
 
 const ImageContainer = styled.div`
   max-width: 366px;

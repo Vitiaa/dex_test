@@ -8,6 +8,7 @@ import TeamCard from "../components/TeamDetailCard/TeamCard";
 import AddPlayer from "../components/AddPlayer/AddPlayer";
 import PlayerCatalog from "../components/Catalog/PlayerCatalog/PlayerCatalog";
 import PlayerCard from "../components/PlayerDetailCard/PlayerCard";
+import EditTeam from "../components/EditTeam/editTeam";
 
 export const routes = [
   {
@@ -49,10 +50,12 @@ export const routes = [
     path: "/AddTeam",
     main: () => <AddTeam />,
   },
+  { path: "/EditTeam/:teamID", main: () => <EditTeam /> },
   {
     path: "/AddPlayer",
     main: () => <AddPlayer />,
   },
+  { path: "/EditPlayer", main: () => <AddPlayer /> },
   { path: "/PlayerCatalog", main: () => <PlayerCatalog /> },
   {
     path: "/PlayerCard/:playerID",

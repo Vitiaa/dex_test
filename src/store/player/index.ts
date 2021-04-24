@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { addPlayer, getPlayers, getTeamsPlayers } from "./asyncAction";
+import {addPlayer, editPlayer, getPlayers, getPlayers2, getTeamsPlayers} from "./asyncAction";
 import {
   InitialStatePlayerInterface,
   PlayerInterface,
@@ -12,8 +12,8 @@ const initialState: InitialStatePlayerInterface = {
   loading: false,
   error: null,
   count: 0,
-  page: 0,
-  size: 0,
+  page: 1,
+  size: 6,
 };
 
 export const PlayerSlice = createSlice({
@@ -21,7 +21,7 @@ export const PlayerSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getPlayers.fulfilled.type]: (state, { payload }) => {
+    [getPlayers2.fulfilled.type]: (state, { payload }) => {
       state.items = payload?.data;
       state.loading = false;
       state.count = payload.count;
@@ -36,6 +36,7 @@ export const PlayerSlice = createSlice({
       state.size = payload.size;
     },
     [addPlayer.fulfilled.type]: (state, { payload }) => {},
+    [editPlayer.fulfilled.type]: (state, { payload }) => {},
   },
 });
 

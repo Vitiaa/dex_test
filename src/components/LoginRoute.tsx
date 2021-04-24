@@ -3,12 +3,13 @@ import React from "react";
 import { useAuthSelector } from "../store/auth";
 
 export const LoginRoute: React.FC<any> = ({ children, ...rest }) => {
-  const isAuth = useAuthSelector((state) => state.auth.isAuth);
+  const { status, isAuth} = useAuthSelector((state) => state.auth);
+
 
   return (
     <Route
       {...rest}
-      render={() => (isAuth ? <Redirect to={"/TeamCatalog"} /> : children)}
+      render={() => (isAuth && status === "loaded" ? <Redirect to={"/TeamCatalog"} /> : children)}
     />
   );
 };

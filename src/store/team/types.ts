@@ -13,8 +13,9 @@ export interface InitialStateTeamsInterface {
   loading: false;
   error: null;
   count: number;
-  page: number;
-  size: number;
+  page: number | null;
+  size: any;
+  teamForPlayer:any
 }
 
 export interface RootTeamStateInterface {

@@ -1,11 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { getTeams2 } from "../../../store/team/asyncAction";
+import { useAppDispatch } from "../../../store";
+import { useForm } from "react-hook-form";
+import { addPlayer, getPlayers2 } from "../../../store/player/asyncAction";
+import MultiSelect from "../MultiSelect/MultiSelect";
 
-const SearchInput = () => {
+const SearchInput: React.FC<{
+  size: number;
+  TypeCatalog: string;
+}> = ({ size, TypeCatalog }) => {
+  const dispatch = useAppDispatch();
+  const pageNum = 1;
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<{ pageNum: number; size: number; name: string; multiTeam:any }>();
+
+  let name = watch("name") || "";
+  let TeamIds: any = watch("multiTeam");
+  console.log(TeamIds);
+  useEffect(() => {
+    if (name) {
+      if (TypeCatalog == "teams") {
+        dispatch(getTeams2({ pageNum, size, name }));
+      } else if (TypeCatalog == "players") {
+        dispatch(getPlayers2({ pageNum, size, name }));
+      }
+    }
+  }, [name]);
+
+  const onSubmit = (data: any) => {
+    // if (name){
+    //     if(TypeCatalog =="teams"){
+    //         dispatch(getTeams2({pageNum,size,name}));
+    //     }
+    //     else if (TypeCatalog == "players"){dispatch(getPlayers2({pageNum,size,name}));}
+    // }
+    console.log("        console.log('');\n");
+  };
   return (
-    <InputWr>
-      <input type="text" />
-    </InputWr>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {" "}
+      <InputWr>
+        <input type="text" {...register("name")} />
+      </InputWr>
+      {TypeCatalog == "players" ? (
+        <MultiSelect {...register} name={"multiTeam"} />
+      ) : null}
+    </form>
   );
 };
 

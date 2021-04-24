@@ -15,7 +15,7 @@ interface IFormInputAuth {
 }
 
 const Auth: React.FC = () => {
-  const { register, handleSubmit } = useForm<IFormInputAuth>();
+  const { register, handleSubmit,formState: { errors } } = useForm<IFormInputAuth>();
   const dispatch = useAppDispatch();
   const onSubmit = (data: IFormInputAuth) => {
     dispatch(login(data));
@@ -27,9 +27,16 @@ const Auth: React.FC = () => {
         <AuthForm onSubmit={handleSubmit(onSubmit)}>
           <h1>Sign In</h1>
 
-          <Input ref={register} name="login" type="text" />
+          <Input {...register("login")} name="login" type="text" />
 
-          <Input ref={register} name="password" type="password" />
+          <Input {...register("password")} name="password" type="password" />
+          {/*<input*/}
+          {/*    placeholder="luo"*/}
+          {/*    {...register("login", {*/}
+          {/*      validate: (value) => value.length > 3*/}
+          {/*    })}*/}
+          {/*/>*/}
+          {/*{errors.login && <p>Your last name is less than 3 characters</p>}*/}
 
           <Button />
           <LinkWrap>

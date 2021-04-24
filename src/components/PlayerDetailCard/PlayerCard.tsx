@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Redirect, useParams } from "react-router";
 import styled from "styled-components";
 import CardHeader from "./CardHeader";
@@ -6,6 +6,9 @@ import { deviceMax } from "../Primitives";
 import { AdminLayout } from "../Layout";
 import { useAppDispatch } from "../../store";
 import { useSelector } from "react-redux";
+import {getTeam} from "../../store/team/asyncAction";
+import {useTeamSelector} from "../../store/team";
+import {getPlayers2} from "../../store/player/asyncAction";
 
 const PlayerCard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,10 +16,18 @@ const PlayerCard: React.FC = () => {
   const player: any = useSelector<any>((state) =>
     state.players?.items.find((item: any) => item.id === Number(playerID))
   );
-  const team: any = useSelector<any>((state) =>
-    state.teams?.items.find((item: any) => item.id === 493)
-  );
-  console.log(team);
+
+const teamForPlayer =useTeamSelector(state => state.teams.teamForPlayer?.name)
+
+  useEffect(() => {
+    dispatch(getTeam(player.team));
+  }, []);
+
+
+  const now = new Date();
+  const birthday = Number(player?.birthday.substring(0,4));
+  const age = now.getFullYear()  - birthday;
+
   if (!player) {
     return <Redirect to={"/PlayerCatalog"} />;
   }
@@ -54,7 +65,7 @@ const PlayerCard: React.FC = () => {
                   <TeamDecriptionGroup>
                     <TeamDecriptionTitle>Team</TeamDecriptionTitle>
                     <TeamDecriptionSubTitle>
-                      {player.team}
+                      {teamForPlayer}
                     </TeamDecriptionSubTitle>
                   </TeamDecriptionGroup>
                   <br />
@@ -74,7 +85,7 @@ const PlayerCard: React.FC = () => {
                   <TeamDecriptionGroup>
                     <TeamDecriptionTitle>age</TeamDecriptionTitle>
                     <TeamDecriptionSubTitle>
-                      {player.birthday}
+                      {age}
                     </TeamDecriptionSubTitle>
                   </TeamDecriptionGroup>
                 </TeamDecription>
@@ -112,9 +123,9 @@ const TeamCardWrapper = styled.div`
 const LeftTeamBlock = styled.div`
   display: flex;
   margin: auto;
-  padding: 0px 145px 0px;
+  padding: 0 145px 0;
   @media ${deviceMax.tablet} {
-    padding: 0px;
+    padding: 0;
     margin-top: 48px;
     margin-bottom: 48px;
   }

@@ -1,44 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { deviceMax } from "../Primitives";
 import AddButton from "../UI/Button/AddButton";
 import SearchInput from "../UI/SearchInput/SearchInput";
 import CatalogItem from "../CatalogItem/CatalogItem";
 import { useAppDispatch } from "../../store";
-import { useSelector } from "react-redux";
-import MultiSelect from "../UI/MultiSelect/MultiSelect";
 import { AdminLayout } from "../Layout";
-import { getTeams } from "../../store/team/asyncAction";
+import { getTeams, getTeams2 } from "../../store/team/asyncAction";
 import { Link, NavLink } from "react-router-dom";
 import { useTeamSelector } from "../../store/team";
-import { usePlayerSelector } from "../../store/player";
-import { getPlayers } from "../../store/player/asyncAction";
+import { InitialStateTeamsInterface } from "../../store/team/types";
+import { CustomPagination } from "../Pagination/Pagination";
+import ReactPaginate from "react-paginate";
 
 const TeamCatalog: React.FC = () => {
   const dispatch = useAppDispatch();
-  const items = useTeamSelector((state) => state.teams?.items);
+  const { page, size, items, count } = useTeamSelector((state) => state.teams);
+  let unCount = count % 2;
+  console.log(unCount);
+
+  const sumPage = Math.floor(count / 6) + 1;
+  console.log(sumPage);
+  const pageNum = page;
+  let name = "";
+  console.log(size);
 
   useEffect(() => {
-    dispatch(getTeams());
-  }, []);
+    dispatch(getTeams2({ pageNum, size, name }));
+  }, [page]);
+  useEffect(() => {console.log(items)},[items])
+
+  const teamsList = useMemo(
+    () =>
+      items.length ? (
+        items.map((item: any) => <CatalogItem key={item.id} item={item} />)
+      ) : (
+        <p>lol </p>
+      ),
+    [items]
+  );
 
   return (
     <AdminLayout hasHeader={true}>
       <CatalogWrapper>
         <CatalogHeader>
           <>
-            <SearchInput />
+            <SearchInput TypeCatalog={"teams"} size={size} />
           </>
           <Link to={"/AddTeam"}>
             <AddButton />
           </Link>
         </CatalogHeader>
-        <ItemList>
-          {items.map((item: any) => {
-            return <CatalogItem key={item.id} item={item} />;
-          })}
-        </ItemList>
+
+        <ItemList>{teamsList}</ItemList>
       </CatalogWrapper>
+      <CustomPagination TypeCatalog={"teams"} sumPage={sumPage} size={size} />
     </AdminLayout>
   );
 };

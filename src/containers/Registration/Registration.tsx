@@ -28,10 +28,10 @@ const Registration: React.FC = () => {
       <LeftRegistrationWrap>
         <RegistrationForm onSubmit={handleSubmit(onSubmit)}>
           <h1>Sign Up</h1>
-          <Input ref={register} name="userName" type="text" />
-          <Input ref={register} name="login" type="text" />
-          <Input ref={register} name="password" type="password" />
-          {/*<Input ref={register} name="confirmPassword" type="password" />*/}
+          <Input {...register} name="userName" type="text" />
+          <Input {...register} name="login" type="text" />
+          <Input {...register} name="password" type="password" />
+          {/*<Input {...register} name="confirmPassword" type="password" />*/}
 
           <Button />
 

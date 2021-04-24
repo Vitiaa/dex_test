@@ -68,7 +68,7 @@ const TeamCard: React.FC = () => {
             </TeamCardWrapper>
           </TeamCardBackground>
 
-          {/*<TeamsPlayersList teamID={Number(teamID)} />*/}
+          <TeamsPlayersList teamID={Number(teamID)} />
         </>
       }
     </AdminLayout>

@@ -15,20 +15,32 @@ export const Header: React.FC = (props) => {
   const userName = useAuthSelector((state) => state.auth.name);
   return (
     <header>
-      <HeaderContainer>
-        <button onClick={logoutFunc}>выход</button>
-        <LeftBlock>
-          <img src={logo} alt="" />
-        </LeftBlock>
-        <RightBlock>
-          <p>{userName}</p>
-          <img src={profile_svg} alt="" />
-        </RightBlock>
-      </HeaderContainer>
+      <>
+        <HeaderContainer>
+          <button onClick={logoutFunc}>выход</button>
+          <LeftBlock>
+            <img src={logo} alt="" />
+          </LeftBlock>
+          <RightBlock>
+            <p>{userName}</p>
+            <img src={profile_svg} alt="" />
+          </RightBlock>
+        </HeaderContainer>
+
+    </>
+
     </header>
   );
 };
 
+const Menu = styled.div`
+position: absolute;
+width: 200px;
+height: 1400px;
+margin: 500px;
+
+margin: 0;
+`
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;

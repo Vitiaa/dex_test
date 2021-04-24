@@ -1,14 +1,11 @@
-import React, { forwardRef, InputHTMLAttributes } from "react";
+import React, { forwardRef,} from "react";
 import styled from "styled-components";
 
 const Input: React.FC<any> = forwardRef((props, ref) => {
   return (
     <InputWr>
       <label>{props.name}</label>
-
       <input ref={ref} {...props} />
-
-      {/*{!props.required ? <span>ошибка</span> : null}*/}
     </InputWr>
   );
 });

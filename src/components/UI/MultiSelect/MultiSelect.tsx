@@ -1,22 +1,24 @@
-import React from "react";
+import React, {forwardRef, useEffect} from "react";
 import chroma from "chroma-js";
 
 import Select from "react-select";
 import styled from "styled-components";
+import {useTeamSelector} from "../../../store/team";
+import CatalogItem from "../../CatalogItem/CatalogItem";
+import {useAppDispatch} from "../../../store";
+import {getTeams2} from "../../../store/team/asyncAction";
+import {getPlayers2} from "../../../store/player/asyncAction";
 
-const MultiSelect: React.FC = (...props) => {
-  const colourOptions = [
-    { value: "ocean", label: "Ocean", color: "#9C9C9C", isFixed: true },
-    { value: "blue", label: "Blue", color: "#9C9C9C", isDisabled: true },
-    { value: "purple", label: "Purple", color: "#9C9C9C" },
-    { value: "red", label: "Red", color: "#9C9C9C", isFixed: true },
-    { value: "orange", label: "Orange", color: "#9C9C9C" },
-    { value: "yellow", label: "Yellow", color: "#9C9C9C" },
-    { value: "green", label: "Green", color: "#9C9C9C" },
-    { value: "forest", label: "Forest", color: "#9C9C9C" },
-    { value: "slate", label: "Slate", color: "#9C9C9C" },
-    { value: "silver", label: "Silver", color: "#9C9C9C" },
-  ];
+const MultiSelect: React.FC<any> = forwardRef((props, ref) => {
+  const  dispatch = useAppDispatch();
+   useEffect(() => {
+     dispatch(getTeams2({pageNum:null,size: null,name: null }));
+  }, []);
+  const teamsList =useTeamSelector(state => state.teams?.items);
+  const Options = teamsList.map((item: any) => {
+    return { value: item.id, label: item.name, color: "#9C9C9C" };
+  })
+
   const colourStyles = {
     control: (styles: any) => ({ ...styles, backgroundColor: "white" }),
     option: (styles: any, { data, isDisabled, isFocused, isSelected }: any) => {
@@ -70,17 +72,17 @@ const MultiSelect: React.FC = (...props) => {
   };
   return (
     <MultiSelectWrapper>
-      <Select
+      <Select ref={ref} {...props}
         style={"max-width: 366px;"}
         closeMenuOnSelect={false}
-        defaultValue={[colourOptions[0], colourOptions[1]]}
         isMulti
-        options={colourOptions}
+              onChange={console.log()}
+          options={Options}
         styles={colourStyles}
       />
     </MultiSelectWrapper>
   );
-};
+});
 
 export default MultiSelect;
 const MultiSelectWrapper = styled.div`

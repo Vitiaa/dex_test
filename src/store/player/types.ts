@@ -10,6 +10,7 @@ export interface PlayerInterface {
   height: number;
   weight: number;
   avatarUrl: string;
+  id: number;
 }
 
 export interface InitialStatePlayerInterface {

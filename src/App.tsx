@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { Route, Switch } from "react-router-dom";
 import { routes } from "./constants/routes";
 
+
 const App = () => {
+
   return (
     <AppWrapper>
       <Switch>
@@ -16,6 +18,7 @@ const App = () => {
           />
         ))}
       </Switch>
+
     </AppWrapper>
   );
 };

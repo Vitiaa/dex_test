@@ -22,6 +22,7 @@ const initialState: InitialStateAuthInterface = {
   isAuth: localStorage.isAuth || false,
   token: localStorage.token || "",
   name: localStorage.name || "",
+  status: "pending",
 };
 
 export const AuthSlice = createSlice({
@@ -31,6 +32,7 @@ export const AuthSlice = createSlice({
     logout(state) {
       localStorage.isAuth = false;
       state.isAuth = false;
+      state.status = "pending";
     },
   },
   extraReducers: {
@@ -38,12 +40,17 @@ export const AuthSlice = createSlice({
       state.isAuth = true;
       state.token = payload.token;
       state.name = payload.name;
+
       localStorage.isAuth = true;
       localStorage.token = payload.token;
       localStorage.name = payload.name;
+      state.status = "loaded";
     },
     [login.rejected.type]: (state, action) => {
       return action;
+    },
+    [login.pending.type]: (state, action) => {
+      return { ...state, status: "loading" };
     },
   },
 });

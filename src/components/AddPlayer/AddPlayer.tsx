@@ -15,7 +15,7 @@ import { useTeamSelector } from "../../store/team";
 import { usePlayerPositionsSelector } from "../../store/playerPositions";
 import { getTeams } from "../../store/team/asyncAction";
 const AddPlayer: React.FC = () => {
-  const { register, handleSubmit, watch, control } = useForm<PlayerInterface>();
+  const {register, handleSubmit, watch, control } = useForm<PlayerInterface>();
   const [imageUrl, setImageUrl] = useState("");
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -71,11 +71,11 @@ const AddPlayer: React.FC = () => {
               <ImageContainer>
                 <img src={imageUrl} />
 
-                <input ref={register} name="image" type="file" />
+                <input {...register} name="image" type="file" />
               </ImageContainer>
             </LeftAuthWrap>
             <RightAuthWrap>
-              <Input ref={register} name="name" type="text" />
+              <Input {...register} name="name" type="text" />
               {/*<Controller control={control} render={({field}) => <CustomSelect  {...field} options={positions} /> }/>*/}
               {/*<CustomSelect*/}
               {/*  defaultValue={positions}*/}
@@ -83,7 +83,7 @@ const AddPlayer: React.FC = () => {
               {/*  onClick={() => console.log("entering")}*/}
               {/*  onChange={(e) => console.log(e.value)}*/}
               {/*/>*/}
-              {/*<select ref={register} name="position">*/}
+              {/*<select {...register} name="position">*/}
               {/*  {positions.map((position) => {*/}
               {/*    console.log(position);*/}
               {/*    return <option>{position.}</option>;*/}
@@ -96,7 +96,7 @@ const AddPlayer: React.FC = () => {
               {/*  onChange={(e) => console.log(e.value)}*/}
               {/*/>*/}
               <label htmlFor="">Team</label>
-              <select ref={register} name="team">
+              <select {...register} name="team">
                 {teamsList.map((team: any) => {
                   return (
                     <option key={team.id} value={team.id}>
@@ -106,7 +106,7 @@ const AddPlayer: React.FC = () => {
                 })}
               </select>
               <label htmlFor="">Position</label>
-              <select ref={register} name="position">
+              <select {...register} name="position">
                 {positions.map((position: any) => {
                   return (
                     <option key={position.value} value={position.value}>
@@ -116,10 +116,10 @@ const AddPlayer: React.FC = () => {
                 })}
               </select>
 
-              <Input ref={register} name="height" type="text" />
-              <Input ref={register} name="weight" type="text" />
-              <Input ref={register} name="birthday" type="date" />
-              <Input ref={register} name="number" type="text" />
+              <Input {...register} name="height" type="text" />
+              <Input {...register} name="weight" type="text" />
+              <Input {...register} name="birthday" type="date" />
+              <Input {...register} name="number" type="text" />
 
               <ButtonsWrapper>
                 <CancelButton />
