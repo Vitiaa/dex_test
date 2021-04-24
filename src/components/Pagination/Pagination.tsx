@@ -14,7 +14,7 @@ export const CustomPagination: React.FC<{
   function onPageChange(data: any) {
     let selected = data.selected + 1;
     let name = "";
-    console.log(TypeCatalog);
+    // console.log(TypeCatalog);
     const pageNum = selected;
     if (TypeCatalog == "teams") {
       dispatch(getTeams2({ pageNum, size, name }));

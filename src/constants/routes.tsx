@@ -1,6 +1,5 @@
 import React from "react";
 import Auth from "../containers/Auth/Auth";
-import { LoginRoute } from "../components/LoginRoute";
 import Registration from "../containers/Registration/Registration";
 import TeamCatalog from "../components/Catalog/TeamCatalog";
 import AddTeam from "../components/AddTeam/AddTeam";
@@ -9,38 +8,40 @@ import AddPlayer from "../components/AddPlayer/AddPlayer";
 import PlayerCatalog from "../components/Catalog/PlayerCatalog/PlayerCatalog";
 import PlayerCard from "../components/PlayerDetailCard/PlayerCard";
 import EditTeam from "../components/EditTeam/editTeam";
+import { PublicLayout } from "../components/layouts/PublicLayout";
+import { PrivateLayout } from "../components/layouts/PrivateLayout";
 
 export const routes = [
   {
     path: "/",
     exact: true,
     main: () => (
-      <LoginRoute>
+      <PublicLayout>
         <Auth />
-      </LoginRoute>
+      </PublicLayout>
     ),
   },
   {
     path: "/login",
     exact: true,
     main: () => (
-      <LoginRoute>
+      <PublicLayout>
         <Auth />
-      </LoginRoute>
+      </PublicLayout>
     ),
   },
   {
     path: "/registration",
     exact: true,
-    main: () => (
-      <LoginRoute>
-        <Registration />
-      </LoginRoute>
-    ),
+    main: () => <Registration />,
   },
   {
     path: "/TeamCatalog",
-    main: () => <TeamCatalog />,
+    main: () => (
+      <PrivateLayout>
+        <TeamCatalog />
+      </PrivateLayout>
+    ),
   },
   {
     path: "/TeamCard/:teamID",

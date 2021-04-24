@@ -15,7 +15,7 @@ import { useParams } from "react-router";
 
 const EditTeam: React.FC = () => {
   const { teamID }: { teamID: string } = useParams();
-  console.log(teamID);
+  // console.log(teamID);
   const {
     register,
     handleSubmit,
@@ -26,7 +26,7 @@ const EditTeam: React.FC = () => {
   const dispatch = useAppDispatch();
   const onSubmit = (data: TeamInterface) => {
     data.id = Number(teamID);
-    console.log(data);
+    // console.log(data);
     dispatch(editTeam(data));
   };
   const image = watch("image");

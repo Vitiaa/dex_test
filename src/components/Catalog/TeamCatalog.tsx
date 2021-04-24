@@ -17,18 +17,19 @@ const TeamCatalog: React.FC = () => {
   const dispatch = useAppDispatch();
   const { page, size, items, count } = useTeamSelector((state) => state.teams);
   let unCount = count % 2;
-  console.log(unCount);
+  // console.log(unCount);
 
   const sumPage = Math.floor(count / 6) + 1;
-  console.log(sumPage);
+  // console.log(sumPage);
   const pageNum = page;
   let name = "";
-  console.log(size);
+  // console.log(size);
 
   useEffect(() => {
-    dispatch(getTeams2({ pageNum, size, name }));
+    console.log("localStorage.token => ", localStorage.token);
+    dispatch(getTeams());
   }, [page]);
-  useEffect(() => {console.log(items)},[items])
+  // useEffect(() => {console.log(items)},[items])
 
   const teamsList = useMemo(
     () =>

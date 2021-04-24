@@ -1,23 +1,23 @@
-import React, {forwardRef, useEffect} from "react";
+import React, { forwardRef, useEffect } from "react";
 import chroma from "chroma-js";
 
 import Select from "react-select";
 import styled from "styled-components";
-import {useTeamSelector} from "../../../store/team";
+import { useTeamSelector } from "../../../store/team";
 import CatalogItem from "../../CatalogItem/CatalogItem";
-import {useAppDispatch} from "../../../store";
-import {getTeams2} from "../../../store/team/asyncAction";
-import {getPlayers2} from "../../../store/player/asyncAction";
+import { useAppDispatch } from "../../../store";
+import { getTeams2 } from "../../../store/team/asyncAction";
+import { getPlayers2 } from "../../../store/player/asyncAction";
 
 const MultiSelect: React.FC<any> = forwardRef((props, ref) => {
-  const  dispatch = useAppDispatch();
-   useEffect(() => {
-     dispatch(getTeams2({pageNum:null,size: null,name: null }));
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getTeams2({ pageNum: null, size: null, name: null }));
   }, []);
-  const teamsList =useTeamSelector(state => state.teams?.items);
+  const teamsList = useTeamSelector((state) => state.teams?.items);
   const Options = teamsList.map((item: any) => {
     return { value: item.id, label: item.name, color: "#9C9C9C" };
-  })
+  });
 
   const colourStyles = {
     control: (styles: any) => ({ ...styles, backgroundColor: "white" }),
@@ -72,12 +72,17 @@ const MultiSelect: React.FC<any> = forwardRef((props, ref) => {
   };
   return (
     <MultiSelectWrapper>
-      <Select ref={ref} {...props}
+      <Select
+        ref={ref}
+        {...props}
         style={"max-width: 366px;"}
         closeMenuOnSelect={false}
         isMulti
-              onChange={console.log()}
-          options={Options}
+        onChange={
+          () => {}
+          // console.log()
+        }
+        options={Options}
         styles={colourStyles}
       />
     </MultiSelectWrapper>

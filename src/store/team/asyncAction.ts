@@ -2,11 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { baseInstance } from "../../api/constants";
 import { InitialStateTeamsInterface, TeamInterface } from "./types";
 import { addImage } from "../image/asyncActions";
+import axios from "axios";
 
 export const getTeams = createAsyncThunk(
   "team/getTeams",
   async (_, dispatch) => {
-    const { data } = await baseInstance.get(`/Team/GetTeams`, {});
+    const { data } = await axios.get(
+      `http://dev.trainee.dex-it.ru/api/Team/GetTeams`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      }
+    );
 
     return data;
   }

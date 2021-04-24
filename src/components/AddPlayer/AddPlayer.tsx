@@ -15,7 +15,7 @@ import { useTeamSelector } from "../../store/team";
 import { usePlayerPositionsSelector } from "../../store/playerPositions";
 import { getTeams } from "../../store/team/asyncAction";
 const AddPlayer: React.FC = () => {
-  const {register, handleSubmit, watch, control } = useForm<PlayerInterface>();
+  const { register, handleSubmit, watch, control } = useForm<PlayerInterface>();
   const [imageUrl, setImageUrl] = useState("");
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -26,9 +26,9 @@ const AddPlayer: React.FC = () => {
   const positions = usePlayerPositionsSelector(
     (state) => state.playerPositions?.items
   );
-  console.log(positions);
+  // console.log(positions);
   const teamsList: any = useTeamSelector((state) => state.teams?.items);
-  console.log(teamsList);
+  // console.log(teamsList);
   const onSubmit = (data: any) => {
     dispatch(addPlayer(data));
   };

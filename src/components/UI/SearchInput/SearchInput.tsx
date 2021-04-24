@@ -17,11 +17,16 @@ const SearchInput: React.FC<{
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<{ pageNum: number; size: number; name: string; multiTeam:any }>();
+  } = useForm<{
+    pageNum: number;
+    size: number;
+    name: string;
+    multiTeam: any;
+  }>();
 
   let name = watch("name") || "";
   let TeamIds: any = watch("multiTeam");
-  console.log(TeamIds);
+  // console.log(TeamIds);
   useEffect(() => {
     if (name) {
       if (TypeCatalog == "teams") {
@@ -39,7 +44,7 @@ const SearchInput: React.FC<{
     //     }
     //     else if (TypeCatalog == "players"){dispatch(getPlayers2({pageNum,size,name}));}
     // }
-    console.log("        console.log('');\n");
+    // console.log("        console.log('');\n");
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

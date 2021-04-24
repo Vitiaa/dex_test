@@ -12,14 +12,18 @@ import { AdminLayout } from "../Layout";
 import { TeamInterface } from "../../store/team/types";
 import { useSelector } from "react-redux";
 
-
 const AddTeam: React.FC = () => {
-  const { register, handleSubmit, watch,  formState: { errors }} = useForm<TeamInterface>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<TeamInterface>();
   const [imageUrl, setImageUrl] = useState("");
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: TeamInterface) => {
-    console.log("kek")
+    // console.log("kek")
     dispatch(addTeam(data));
   };
   const image = watch("image");
@@ -46,7 +50,6 @@ const AddTeam: React.FC = () => {
     asyncConvert();
   }, [image]);
 
-
   return (
     <AdminLayout hasHeader={true}>
       <>
@@ -67,13 +70,15 @@ const AddTeam: React.FC = () => {
             </LeftAuthWrap>
             <RightAuthWrap>
               <label htmlFor=""></label>
-              <Input {...register("name",{validate:(value) => false})} name="name" type="text" />
+              <Input
+                {...register("name", { validate: (value) => false })}
+                name="name"
+                type="text"
+              />
               {errors.name && <p>dffdgfd</p>}
               <Input {...register} name="division" type="text" />
               <Input {...register} name="conference" type="text" />
               <Input {...register} name="foundationYear" type="text" />
-
-
 
               <ButtonsWrapper>
                 <CancelButton />

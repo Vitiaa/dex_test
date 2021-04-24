@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { deviceMax } from "./Primitives";
-import { Redirect } from "react-router";
 import profile_svg from "../assets/Icons/profile_rounded.svg";
-import { useAuthSelector } from "../store/auth";
+import { logout, useAuthSelector } from "../store/auth";
+import { useAppDispatch } from "../store";
 
 export const Header: React.FC = (props) => {
+  const dispatch = useAppDispatch();
   function logoutFunc() {
-    localStorage.removeItem("isAuth");
-    localStorage.removeItem("token");
+    dispatch(logout());
   }
 
   const userName = useAuthSelector((state) => state.auth.name);
@@ -26,21 +26,19 @@ export const Header: React.FC = (props) => {
             <img src={profile_svg} alt="" />
           </RightBlock>
         </HeaderContainer>
-
-    </>
-
+      </>
     </header>
   );
 };
 
 const Menu = styled.div`
-position: absolute;
-width: 200px;
-height: 1400px;
-margin: 500px;
+  position: absolute;
+  width: 200px;
+  height: 1400px;
+  margin: 500px;
 
-margin: 0;
-`
+  margin: 0;
+`;
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;

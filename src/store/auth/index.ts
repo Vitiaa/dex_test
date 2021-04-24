@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { InitialStateAuthInterface, RootAuthStateInterface } from "./types";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 import axios from "axios";
+import { baseInstance } from "../../api/constants";
 
 export const login = createAsyncThunk<
   string,
@@ -22,38 +23,52 @@ const initialState: InitialStateAuthInterface = {
   isAuth: localStorage.isAuth || false,
   token: localStorage.token || "",
   name: localStorage.name || "",
-  status: "pending",
+  status: localStorage.authStatus || "pending",
 };
 
 export const AuthSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout(state) {
-      localStorage.isAuth = false;
+    logout: (state) => {
+      console.log(state);
+      delete localStorage.isAuth;
+      delete localStorage.authStatus;
+      delete localStorage.token;
+      delete localStorage.name;
       state.isAuth = false;
       state.status = "pending";
+      state.token = "";
+      state.name = "";
     },
   },
   extraReducers: {
+    [login.pending.type]: (state, action) => {
+      // console.log("pending");
+      state.status = "loading";
+      // return { ...state, status: "loading" };
+    },
+    [login.rejected.type]: (state, action) => {
+      // console.log("rejectd");
+      return action;
+    },
     [login.fulfilled.type]: (state, { payload }) => {
-      state.isAuth = true;
-      state.token = payload.token;
-      state.name = payload.name;
-
+      console.log(payload);
       localStorage.isAuth = true;
       localStorage.token = payload.token;
       localStorage.name = payload.name;
+      localStorage.authStatus = "loaded";
+
+      state.isAuth = true;
+      state.token = payload.token;
+      state.name = payload.name;
       state.status = "loaded";
-    },
-    [login.rejected.type]: (state, action) => {
-      return action;
-    },
-    [login.pending.type]: (state, action) => {
-      return { ...state, status: "loading" };
+      baseInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${payload.token}`;
     },
   },
 });
 
+export const { logout: logout } = AuthSlice.actions;
 export const useAuthSelector: TypedUseSelectorHook<RootAuthStateInterface> = useSelector;
-export const { logout } = AuthSlice.actions;
