@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Input from "../../components/UI/Input/Input";
+import { Input } from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import { deviceMax } from "../../components/Primitives";
 import { useForm } from "react-hook-form";
@@ -11,15 +11,20 @@ import { addTeam } from "../../store/team/asyncAction";
 import { AdminLayout } from "../Layout";
 import { TeamInterface } from "../../store/team/types";
 import { useSelector } from "react-redux";
-
+import {ErrorMessage} from "../UI/ErrorList/ErrorMesage";
 
 const AddTeam: React.FC = () => {
-  const { register, handleSubmit, watch,  formState: { errors }} = useForm<TeamInterface>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<TeamInterface>();
   const [imageUrl, setImageUrl] = useState("");
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: TeamInterface) => {
-    console.log("kek")
+  console.log(data);
     dispatch(addTeam(data));
   };
   const image = watch("image");
@@ -46,7 +51,6 @@ const AddTeam: React.FC = () => {
     asyncConvert();
   }, [image]);
 
-
   return (
     <AdminLayout hasHeader={true}>
       <>
@@ -62,23 +66,61 @@ const AddTeam: React.FC = () => {
               <ImageContainer>
                 <img src={imageUrl} />
 
-                <input {...register} name="image" type="file" />
+                <input
+                  {...register("image", { required: true })}
+                  name="image"
+                  type="file"
+                />
+                {errors.image &&  <ErrorMessage errorMessage={"This field is recurred"} />}
               </ImageContainer>
             </LeftAuthWrap>
             <RightAuthWrap>
-              <label htmlFor=""></label>
-              <Input {...register("name",{validate:(value) => false})} name="name" type="text" />
-              {errors.name && <p>dffdgfd</p>}
-              <Input {...register} name="division" type="text" />
-              <Input {...register} name="conference" type="text" />
-              <Input {...register} name="foundationYear" type="text" />
+              <Input
+                {...register("name", {
+                  required: true,
+                })}
+                name="name"
+                type="text"
+              />
+              {errors.name &&  <ErrorMessage errorMessage={"This field is recurred"} />}
+
+              <Input
+                {...register("division", { required: true})}
+                name="division"
+                type="text"
+              />
+              {errors.division &&  <ErrorMessage errorMessage={"This field is recurred"} />}
+              <Input
+                {...register("conference", { required: true })}
+                name="conference"
+                type="text"
+              />
+
+              {errors.conference && (
+                  <ErrorMessage errorMessage={"This field is recurred"} />
+              )}
 
 
-
+              <Input
+                {...register("foundationYear", { required: true, min: 1800,pattern: /^[0-9]+$/i })}
+                name="foundationYear"
+                type="text"
+              />
+              {errors.foundationYear && (
+                  <ErrorMessage errorMessage={"This field is recurred"} />
+              )}
+              {errors.foundationYear?.type == "min" && (
+                  <ErrorMessage errorMessage={"This value is too small "} />
+              )}
+              {errors.foundationYear?.type == "pattern" && (
+                  <ErrorMessage
+                      errorMessage={"This field can only have a value of digits"}
+                  />
+              )}
               <ButtonsWrapper>
                 <CancelButton />
 
-                <Button />
+                <Button name={"save"} />
               </ButtonsWrapper>
             </RightAuthWrap>
           </AddTeamWrapper>

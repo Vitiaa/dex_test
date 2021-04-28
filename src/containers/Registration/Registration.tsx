@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Input from "../../components/UI/Input/Input";
+import { Input } from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Registration_img from "../../assets/Registration-img.svg";
 import { deviceMax } from "../../components/Primitives";
@@ -8,6 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useAppDispatch } from "../../store";
 import { RegistrationUser } from "../../store/register";
 import { Link } from "react-router-dom";
+import { ErrorMessage } from "../../components/UI/ErrorList/ErrorMesage";
 
 interface IFormInput {
   userName: string;
@@ -17,10 +18,19 @@ interface IFormInput {
 }
 
 const Registration: React.FC = () => {
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IFormInput>();
   const dispatch = useAppDispatch();
+  const countPassword = watch("password");
+  const countConfirmPassword = watch("confirmPassword");
   const onSubmit = (data: IFormInput) => {
-    dispatch(RegistrationUser(data));
+
+      dispatch(RegistrationUser(data));
+
   };
 
   return (
@@ -28,15 +38,27 @@ const Registration: React.FC = () => {
       <LeftRegistrationWrap>
         <RegistrationForm onSubmit={handleSubmit(onSubmit)}>
           <h1>Sign Up</h1>
-          <Input {...register} name="userName" type="text" />
-          <Input {...register} name="login" type="text" />
-          <Input {...register} name="password" type="password" />
-          {/*<Input {...register} name="confirmPassword" type="password" />*/}
+          <Input {...register("userName",{ required: true })} name="userName" type="text" />
+          {errors.userName && (
+            <ErrorMessage errorMessage={"This field is recurred"} />
+          )}
+          <Input {...register("login",{ required: true })} name="login" type="text" />
+          {errors.login && (
+            <ErrorMessage errorMessage={"This field is recurred"} />
+          )}
+          <Input {...register("password",{ required: true })} name="password" type="password" />
+          {errors.password && (
+            <ErrorMessage errorMessage={"This field is recurred"} />
+          )}
+          <Input {...register("confirmPassword",{validate: (value) => !!(value == countPassword) || "password and confirmPassword need be similar "})} name="confirmPassword" type="password" />
+          {errors.confirmPassword?.type == "validate" && (
+            <ErrorMessage errorMessage={"password and confirmPassword need be similar "} />
+          )}
 
           <Button />
 
           <LinkWrap>
-            Already a member yet? <Link to={"/"}>Sing ip</Link>
+            Already a member yet? <Link to={"/"}>Sing in</Link>
           </LinkWrap>
         </RegistrationForm>
       </LeftRegistrationWrap>

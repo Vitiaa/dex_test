@@ -12,11 +12,11 @@ interface IProps2 {
   teamID: number;
 }
 const TeamsPlayersList: React.FC<IProps2> = ({ teamID }) => {
-  console.log(teamID);
+  // console.log(teamID);
   const dispatch = useAppDispatch();
   const players = usePlayerSelector((state) => state.players?.items);
   let playerCount = 0;
-  console.log(players);
+  // console.log(players);
   useEffect(() => {
     dispatch(getTeamsPlayers(teamID));
   }, []);

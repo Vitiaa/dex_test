@@ -5,6 +5,7 @@ import { deleteTeam } from "../../store/team/asyncAction";
 import React from "react";
 import { deletePlayer } from "../../store/player/asyncAction";
 import { Link } from "react-router-dom";
+import {deletePlayerFromState} from "../../store/player";
 
 interface IProps {
   itemID: number;
@@ -16,7 +17,13 @@ interface IProps {
 const CardHeader: React.FC<IProps> = ({ itemID, isPlayer, isTeam, name }) => {
   const dispatch = useAppDispatch();
   const deleteItem = () => {
-    isPlayer ? dispatch(deletePlayer(itemID)) : dispatch(deleteTeam(itemID));
+    // isPlayer ? dispatch(deletePlayer(itemID)) : dispatch(deleteTeam(itemID) );
+    if (isPlayer) {
+      // dispatch(deletePlayer(itemID))
+      dispatch(deletePlayerFromState(itemID))
+    }else {
+      dispatch(deleteTeam(itemID))
+    }
     return <Redirect to={"/"} />;
   };
 
@@ -33,7 +40,7 @@ const CardHeader: React.FC<IProps> = ({ itemID, isPlayer, isTeam, name }) => {
       {itemID !== 0 ? (
         <IconBlock>
 
-          <Link to={`/EditTeam/${itemID}`}>
+          <Link to={`${isPlayer? `/EditPlayer/${itemID}`: `/EditTeam/${itemID}`}`}>
             <EditBtn>
               {" "}
               <svg

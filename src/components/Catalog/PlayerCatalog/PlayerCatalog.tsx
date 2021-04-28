@@ -9,20 +9,22 @@ import { useSelector } from "react-redux";
 import { AdminLayout } from "../../Layout";
 import { Link } from "react-router-dom";
 import { usePlayerSelector } from "../../../store/player";
-import { getPlayers2,getPlayers } from "../../../store/player/asyncAction";
-import {CustomPagination} from "../../Pagination/Pagination";
+import { getPlayers2, getPlayers } from "../../../store/player/asyncAction";
+import { CustomPagination } from "../../Pagination/Pagination";
 
 const PlayerCatalog: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const {items,page,count,size}= usePlayerSelector((state) => state.players);
+  const { items, page, count, size } = usePlayerSelector(
+    (state) => state.players
+  );
   const sumPage = Math.floor(count / 6) + 1;
-  console.log(sumPage);
-  const pageNum= page
-  let    name = ''
-  console.log(size);
+  // console.log(sumPage);
+  const pageNum = page;
+  let name = "";
+  // console.log(size);
   useEffect(() => {
-    dispatch(getPlayers2({pageNum,size,name}));
+    dispatch(getPlayers2({ pageNum, size, name }));
   }, []);
 
   return (
@@ -30,8 +32,7 @@ const PlayerCatalog: React.FC = () => {
       <CatalogWrapper>
         <CatalogHeader>
           <>
-            <SearchInput TypeCatalog={"players"} size={1}/>
-
+            <SearchInput TypeCatalog={"players"} size={1} />
           </>
           <Link to={"/AddPlayer"}>
             <AddButton />
@@ -42,7 +43,11 @@ const PlayerCatalog: React.FC = () => {
             return <CatalogItem key={item.id} item={item} />;
           })}
         </ItemList>
-        <CustomPagination TypeCatalog={"players"} sumPage={sumPage} size={size}/>
+        <CustomPagination
+          TypeCatalog={"players"}
+          sumPage={sumPage}
+          size={size}
+        />
       </CatalogWrapper>
     </AdminLayout>
   );

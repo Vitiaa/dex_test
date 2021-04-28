@@ -25,7 +25,7 @@ const CatalogItem: React.FC<IProps> = ({ item }) => {
   // const history = useHistory();
   // const goToTeam = () => history.push(`/TeamCard${item.id}`);
   // console.log(item);
-  console.log(item);
+  // console.log(item);
 
   return (
     <CatalogItemWrapper>

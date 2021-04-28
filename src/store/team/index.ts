@@ -21,7 +21,6 @@ export const teamSlice = createSlice({
   extraReducers: {
     [getTeams.fulfilled.type]: (state, { payload }) => {
       state.items = payload.data;
-
       state.loading = false;
       state.count = payload.count;
       state.page = payload.page;

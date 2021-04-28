@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Input from "../../components/UI/Input/Input";
+import {Input} from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import { deviceMax } from "../../components/Primitives";
 import { useForm } from "react-hook-form";
@@ -12,10 +12,14 @@ import { AdminLayout } from "../Layout";
 import { TeamInterface } from "../../store/team/types";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+import {useTeamSelector} from "../../store/team";
 
 const EditTeam: React.FC = () => {
   const { teamID }: { teamID: string } = useParams();
-  console.log(teamID);
+ const defaultTeam = useTeamSelector((state) =>
+     state.teams?.items.find((item: any) => item.id === Number(teamID)))
+   console.log(defaultTeam);
+
   const {
     register,
     handleSubmit,
@@ -26,7 +30,7 @@ const EditTeam: React.FC = () => {
   const dispatch = useAppDispatch();
   const onSubmit = (data: TeamInterface) => {
     data.id = Number(teamID);
-    console.log(data);
+    // console.log(data);
     dispatch(editTeam(data));
   };
   const image = watch("image");
@@ -54,39 +58,73 @@ const EditTeam: React.FC = () => {
   }, [image]);
 
   return (
-    <AdminLayout hasHeader={true}>
-      <>
-        <CardHeader
-          isTeam={true}
-          isPlayer={false}
-          name={`Edit Team ${teamID}`}
-          itemID={0}
-        />
-        <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
-          <AddTeamWrapper>
-            <LeftAuthWrap>
-              <ImageContainer>
-                <img src={imageUrl} />
+      <AdminLayout hasHeader={true}>
+        <>
+          <CardHeader
+              isTeam={true}
+              isPlayer={false}
+              name={"edit team: "}
+              itemID={0}
+          />
+          <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
+            <AddTeamWrapper>
+              <LeftAuthWrap>
+                <ImageContainer>
+                  <img src={imageUrl ? imageUrl : `http://dev.trainee.dex-it.ru${defaultTeam?.imageUrl}`} />
 
-                <input {...register} name="image" type="file" />
-              </ImageContainer>
-            </LeftAuthWrap>
-            <RightAuthWrap>
-              <Input {...register} name="name" type="text" />
-              <Input {...register} name="division" type="text" />
-              <Input {...register} name="conference" type="text" />
-              <Input {...register} name="foundationYear" type="text" />
+                  <input
+                      {...register("image")}
+                      name="image"
+                      type="file"
+                  />
 
-              <ButtonsWrapper>
-                <CancelButton />
+                </ImageContainer>
+              </LeftAuthWrap>
+              <RightAuthWrap>
+                <Input
+                    {...register("name", {
+                      minLength: 3,
+                      required: true,
+                    })}
+                    defaultValue={defaultTeam?.name}
+                    name="name"
+                    type="text"
+                />
+                {errors.name && <span>This field is required</span>}
 
-                <Button />
-              </ButtonsWrapper>
-            </RightAuthWrap>
-          </AddTeamWrapper>
-        </AddTeamForm>
-      </>
-    </AdminLayout>
+                <Input
+                    {...register("division", { required: true, minLength: 3 })}
+                    name="division"
+                    type="text"
+                    defaultValue={defaultTeam?.division}
+                />
+
+                <Input
+                    {...register("conference",)}
+                    name="conference"
+                    type="text"
+                    defaultValue={defaultTeam?.conference}
+                />
+
+
+                <Input
+                    {...register("foundationYear",)}
+                    name="foundationYear"
+                    type="text"
+                    defaultValue={defaultTeam?.foundationYear}
+                />
+
+
+                <ButtonsWrapper>
+                  <CancelButton />
+
+                  <Button name={"save"} />
+                </ButtonsWrapper>
+              </RightAuthWrap>
+            </AddTeamWrapper>
+          </AddTeamForm>
+        </>
+      </AdminLayout>
   );
 };
 

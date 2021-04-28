@@ -3,6 +3,7 @@ export interface InitialStateAuthInterface {
   token: string;
   name: string;
   status: string;
+  error: boolean;
 }
 
 export interface RootAuthStateInterface {
