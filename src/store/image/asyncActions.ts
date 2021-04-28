@@ -1,16 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { baseInstance } from "../../api/constants";
-
+import axios from "axios";
 export const addImage = createAsyncThunk<string, FileList>(
-  "img/addImage",
-  async (params, dispatch) => {
-    const formData = new FormData();
-    formData.append("file", params[0]);
+    "img/addImage",
+    async (params, dispatch) => {
+        const formData = new FormData();
+        formData.append("file", params[0]);
+        if (formData){ const { data } = await axios.post(`http://dev.trainee.dex-it.ru/api/Image/SaveImage`, formData,{
+            headers: {
+                Authorization: `Bearer ${localStorage.token}`,
+            },
+        });
 
-    const { data } = await baseInstance.post(`/Image/SaveImage`, formData);
+            return data;}
 
-    return data;
-  }
+    }
 );
 // export const deleteImage = createAsyncThunk<string>(
 //   "img/addImage",

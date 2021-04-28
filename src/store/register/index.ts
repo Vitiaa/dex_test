@@ -30,7 +30,7 @@ export const RegistrationSlice = createSlice({
   extraReducers: {
     [RegistrationUser.fulfilled.type]: (state, { payload }) => {
       state.user = payload;
-      state.loading = false;
+
     },
   },
 });

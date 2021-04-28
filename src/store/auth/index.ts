@@ -24,6 +24,7 @@ const initialState: InitialStateAuthInterface = {
   token: localStorage.token || "",
   name: localStorage.name || "",
   status: localStorage.authStatus || "pending",
+  error: false,
 };
 
 export const AuthSlice = createSlice({
@@ -44,13 +45,15 @@ export const AuthSlice = createSlice({
   },
   extraReducers: {
     [login.pending.type]: (state, action) => {
-      // console.log("pending");
-      state.status = "loading";
-      // return { ...state, status: "loading" };
+      // state.status = "loading";
+      state.error =  false;
     },
     [login.rejected.type]: (state, action) => {
-      // console.log("rejectd");
-      return action;
+
+        state.error =true;
+
+
+
     },
     [login.fulfilled.type]: (state, { payload }) => {
       console.log(payload);
@@ -63,7 +66,8 @@ export const AuthSlice = createSlice({
       state.token = payload.token;
       state.name = payload.name;
       state.status = "loaded";
-      baseInstance.defaults.headers.common[
+      state.error = false;
+          baseInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${payload.token}`;
     },

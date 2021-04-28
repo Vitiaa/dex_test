@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Input } from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
@@ -7,21 +7,25 @@ import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../UI/Button/CancelButton";
-import { addPlayer } from "../../store/player/asyncAction";
+import { getTeams } from "../../store/team/asyncAction";
 import { AdminLayout } from "../Layout";
+import { useParams } from "react-router";
+import { useTeamSelector } from "../../store/team";
 import { PlayerInterface } from "../../store/player/types";
 import { getPlayerPositions } from "../../store/playerPositions/asyncActions";
-import { useTeamSelector } from "../../store/team";
 import { usePlayerPositionsSelector } from "../../store/playerPositions";
-import { getTeams } from "../../store/team/asyncAction";
+import { editPlayer } from "../../store/player/asyncAction";
+import { usePlayerSelector } from "../../store/player";
 import { ErrorMessage } from "../UI/ErrorList/ErrorMesage";
-const AddPlayer: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<PlayerInterface>();
+
+const EditPlayer: React.FC = () => {
+  const { playerID }: { playerID: string } = useParams();
+
+  const defaultPlayer = usePlayerSelector((state) =>
+    state.players?.items.find((item: any) => item.id === Number(playerID))
+  );
+
+  const { register, handleSubmit, watch,formState: { errors } } = useForm<PlayerInterface>();
   const [imageUrl, setImageUrl] = useState("");
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -32,11 +36,10 @@ const AddPlayer: React.FC = () => {
   const positions = usePlayerPositionsSelector(
     (state) => state.playerPositions?.items
   );
-  // console.log(positions);
   const teamsList: any = useTeamSelector((state) => state.teams?.items);
-  // console.log(teamsList);
   const onSubmit = (data: any) => {
-    dispatch(addPlayer(data));
+    data.id = Number(playerID);
+    dispatch(editPlayer(data));
   };
   const image = watch("image");
   useEffect(() => {
@@ -68,32 +71,37 @@ const AddPlayer: React.FC = () => {
         <CardHeader
           isTeam={false}
           isPlayer={true}
-          name={"Add new player"}
+          name={"Edit player"}
           itemID={0}
         />
         <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
           <AddTeamWrapper>
             <LeftAuthWrap>
               <ImageContainer>
-                <img src={imageUrl} />
+                <img
+                  src={
+                    imageUrl
+                      ? imageUrl
+                      : `http://dev.trainee.dex-it.ru${defaultPlayer?.avatarUrl}`
+                  }
+                />
 
                 <input {...register("image")} name="image" type="file" />
-                {errors.image && (
-                  <ErrorMessage errorMessage={"This field is recurred"} />
-                )}
               </ImageContainer>
             </LeftAuthWrap>
             <RightAuthWrap>
               <Input
                 {...register("name", { required: true })}
+                defaultValue={defaultPlayer?.name}
                 name="name"
                 type="text"
               />
-              {errors.name && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
               <label htmlFor="">Team</label>
-              <select {...register("team", { required: true })} name="team">
+              <select
+                {...register}
+                defaultValue={defaultPlayer?.team}
+                name="team"
+              >
                 {teamsList.map((team: any) => {
                   return (
                     <option key={team.id} value={team.id}>
@@ -101,14 +109,12 @@ const AddPlayer: React.FC = () => {
                     </option>
                   );
                 })}
-                {errors.team && (
-                  <ErrorMessage errorMessage={"This field is recurred"} />
-                )}
               </select>
               <label htmlFor="">Position</label>
               <select
-                {...register("position", { required: true })}
+                {...register("position")}
                 name="position"
+                defaultValue={defaultPlayer?.position}
               >
                 {positions.map((position: any) => {
                   return (
@@ -117,23 +123,14 @@ const AddPlayer: React.FC = () => {
                     </option>
                   );
                 })}
-                {errors.position && (
-                  <ErrorMessage errorMessage={"This field is recurred"} />
-                )}
               </select>
 
               <Input
-                {...register("height", {
-                  required: true,
-                  max: 200,
-                  pattern: /^[0-9]+$/i,
-                })}
+                {...register("height", { max: 250, pattern: /^[0-9]+$/i })}
+                defaultValue={defaultPlayer?.height}
                 name="height"
                 type="text"
               />
-              {errors.height && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
               {errors.height?.type == "max" && (
                 <ErrorMessage errorMessage={"This value is too large "} />
               )}
@@ -142,19 +139,12 @@ const AddPlayer: React.FC = () => {
                   errorMessage={"This field can only have a value of digits"}
                 />
               )}
-
               <Input
-                {...register("weight", {
-                  required: true,
-                  max: 250,
-                  pattern: /^[0-9]+$/i,
-                })}
+                {...register("weight", { max: 250, pattern: /^[0-9]+$/i })}
+                defaultValue={defaultPlayer?.weight}
                 name="weight"
                 type="text"
               />
-              {errors.weight && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
               {errors.weight?.type == "max" && (
                 <ErrorMessage errorMessage={"This value is too large "} />
               )}
@@ -163,28 +153,19 @@ const AddPlayer: React.FC = () => {
                   errorMessage={"This field can only have a value of digits"}
                 />
               )}
-
               <Input
-                {...register("birthday", { required: true })}
+                {...register("birthday")}
+                defaultValue={defaultPlayer?.birthday}
                 name="birthday"
                 type="date"
               />
-              {errors.birthday && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
 
               <Input
-                {...register("number", {
-                  required: true,
-                  max: 250,
-                  pattern: /^[0-9]+$/i,
-                })}
+                {...register("number", { max: 250, pattern: /^[0-9]+$/i })}
+                defaultValue={defaultPlayer?.number}
                 name="number"
                 type="text"
               />
-              {errors.number && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
               {errors.number?.type == "max" && (
                 <ErrorMessage errorMessage={"This value is too large "} />
               )}
@@ -196,7 +177,8 @@ const AddPlayer: React.FC = () => {
 
               <ButtonsWrapper>
                 <CancelButton />
-                <Button name={"Save"} />
+
+                <Button />
               </ButtonsWrapper>
             </RightAuthWrap>
           </AddTeamWrapper>
@@ -206,7 +188,7 @@ const AddPlayer: React.FC = () => {
   );
 };
 
-export default AddPlayer;
+export default EditPlayer;
 
 const ImageContainer = styled.div`
   max-width: 366px;

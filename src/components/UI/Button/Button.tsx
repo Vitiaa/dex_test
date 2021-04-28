@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = () => {
-  return <ButtonB type="submit">кнопка</ButtonB>;
+const Button:React.FC<any> =  (props:any) => {
+  console.log(props);
+  return <ButtonB type="submit">нопка{props.name}</ButtonB>;
 };
 
 export default Button;

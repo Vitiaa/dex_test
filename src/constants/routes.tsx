@@ -10,6 +10,7 @@ import PlayerCard from "../components/PlayerDetailCard/PlayerCard";
 import EditTeam from "../components/EditTeam/editTeam";
 import { PublicLayout } from "../components/layouts/PublicLayout";
 import { PrivateLayout } from "../components/layouts/PrivateLayout";
+import EditPlayer from "../components/EditPlayr/editPlayer";
 
 export const routes = [
   {
@@ -56,10 +57,14 @@ export const routes = [
     path: "/AddPlayer",
     main: () => <AddPlayer />,
   },
-  { path: "/EditPlayer", main: () => <AddPlayer /> },
+
   { path: "/PlayerCatalog", main: () => <PlayerCatalog /> },
   {
     path: "/PlayerCard/:playerID",
     main: () => <PlayerCard />,
+  },
+  {
+    path: "/EditPlayer/:playerID",
+    main: () => <EditPlayer />,
   },
 ];

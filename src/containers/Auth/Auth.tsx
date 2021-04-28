@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import Input from "../../components/UI/Input/Input";
+import { Input } from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import auth_img from "../../assets/auth-img.svg";
 import { deviceMax } from "../../components/Primitives";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../store";
-import { login } from "../../store/auth";
+import {login, useAuthSelector} from "../../store/auth";
 import { Link } from "react-router-dom";
+import {ErrorMessage, ErrorWindow} from "../../components/UI/ErrorList/ErrorMesage";
 
 interface IFormInputAuth {
   login: string;
@@ -15,7 +16,13 @@ interface IFormInputAuth {
 }
 
 const Auth: React.FC = () => {
-  const { register, handleSubmit,formState: { errors } } = useForm<IFormInputAuth>();
+  const ErrorFromServer = useAuthSelector(state => state.auth?.error);
+  console.log(ErrorFromServer);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputAuth>();
   const dispatch = useAppDispatch();
   const onSubmit = (data: IFormInputAuth) => {
     dispatch(login(data));
@@ -27,17 +34,20 @@ const Auth: React.FC = () => {
         <AuthForm onSubmit={handleSubmit(onSubmit)}>
           <h1>Sign In</h1>
 
-          <Input {...register("login")} name="login" type="text" />
+          <Input
+            {...register("login", { required: true })}
+            name="login"
+            type="text"
+          />
+          {errors.login && <ErrorMessage errorMessage={"This field is recurred"} />}
+          <Input
+            {...register("password", { required: true })}
+            name="password"
+            type="password"
+          />
 
-          <Input {...register("password")} name="password" type="password" />
-          {/*<input*/}
-          {/*    placeholder="luo"*/}
-          {/*    {...register("login", {*/}
-          {/*      validate: (value) => value.length > 3*/}
-          {/*    })}*/}
-          {/*/>*/}
-          {/*{errors.login && <p>Your last name is less than 3 characters</p>}*/}
-
+          {errors.password && <ErrorMessage errorMessage={"This field is recurred"} />}
+          {ErrorFromServer && <ErrorMessage errorMessage={"Wrong password. Please, try again."} />}
           <Button />
           <LinkWrap>
             Not a member yet? <Link to={"/registration"}>Sing up</Link>{" "}
@@ -45,6 +55,8 @@ const Auth: React.FC = () => {
         </AuthForm>
       </LeftAuthWrap>
       <RightAuthWrap>
+        {ErrorFromServer &&   <ErrorWindow />}
+
         <AuthImage src={auth_img} />
       </RightAuthWrap>
     </AuthWrapper>
@@ -70,6 +82,7 @@ const LeftAuthWrap = styled.div`
 
 const RightAuthWrap = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   background: #f5fbff;
