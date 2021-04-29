@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { deviceMax } from "../Primitives";
 import { Link } from "react-router-dom";
+import { useTeamSelector } from "../../store/team";
+import { usePlayerSelector } from "../../store/player";
 interface IProps {
   item: {
     name: string;
@@ -22,10 +24,9 @@ interface IProps {
   };
 }
 const CatalogItem: React.FC<IProps> = ({ item }) => {
-  // const history = useHistory();
-  // const goToTeam = () => history.push(`/TeamCard${item.id}`);
-  // console.log(item);
-  // console.log(item);
+  const teamName: any = useTeamSelector((state) =>
+    state.teams?.teamsList.find((e: any) => e.id === item.team)
+  );
 
   return (
     <CatalogItemWrapper>
@@ -42,9 +43,13 @@ const CatalogItem: React.FC<IProps> = ({ item }) => {
         <ItemContent>
           <ItemTitle>
             <h3>{item.name || item.name}</h3>
-            {/*<span>#10</span>*/}
+            <span>{item.number && `# ${item.number}`}</span>
           </ItemTitle>
-          <ItemSubTitle>{item.foundationYear || item.team}</ItemSubTitle>
+          <ItemSubTitle>
+            {item.foundationYear
+              ? ` Year of foundation: ${item.foundationYear}`
+              : teamName?.name}
+          </ItemSubTitle>
         </ItemContent>
       </Link>
     </CatalogItemWrapper>

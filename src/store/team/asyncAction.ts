@@ -3,10 +3,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { TeamInterface } from "./types";
 import { addImage } from "../image/asyncActions";
 import axios from "axios";
-import {baseInstance} from "../../api/constants";
 
-export const getTeams = createAsyncThunk(
-  "team/getTeams",
+
+export const getTeamsList = createAsyncThunk(
+  "team/getTeamsList",
   async (_, dispatch) => {
     const { data } = await axios.get(
       `http://dev.trainee.dex-it.ru/api/Team/GetTeams`,
@@ -20,7 +20,7 @@ export const getTeams = createAsyncThunk(
     return data;
   }
 );
-export const getTeams2 = createAsyncThunk<
+export const getTeams = createAsyncThunk<
   string,
   {
     pageNum: number | null;

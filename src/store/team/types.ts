@@ -16,6 +16,7 @@ export interface InitialStateTeamsInterface {
   page: number | null;
   size: any;
   teamForPlayer:any
+  teamsList :TeamInterface[];
 }
 
 export interface RootTeamStateInterface {

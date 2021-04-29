@@ -1,11 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { InitialStateTeamsInterface, RootTeamStateInterface } from "./types";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import { addTeam, getTeam, getTeams, getTeams2, editTeam } from "./asyncAction";
-import { baseInstance } from "../../api/constants";
+import {addTeam, getTeam, getTeams, editTeam, getTeamsList} from "./asyncAction";
+import {PlayerSlice} from "../player";
 
 const initialState: InitialStateTeamsInterface = {
   items: [],
+  teamsList: [],
   loading: false,
   error: null,
   count: 0,
@@ -17,7 +18,9 @@ const initialState: InitialStateTeamsInterface = {
 export const teamSlice = createSlice({
   name: "teams",
   initialState,
-  reducers: {},
+  reducers: { deleteTeamFromState: (state, { payload }) => {
+      state.items = state.items.filter((item: any) => payload !== item.id);
+    },},
   extraReducers: {
     [getTeams.fulfilled.type]: (state, { payload }) => {
       state.items = payload.data;
@@ -26,12 +29,9 @@ export const teamSlice = createSlice({
       state.page = payload.page;
       state.size = payload.size;
     },
-    [getTeams2.fulfilled.type]: (state, { payload }) => {
-      state.items = payload.data;
-      state.loading = false;
-      state.count = payload.count;
-      state.page = payload.page;
-      state.size = payload.size;
+    [getTeamsList.fulfilled.type]: (state, { payload }) => {
+      state.teamsList = payload.data;
+
     },
 
     [addTeam.fulfilled.type]: (state, { payload }) => {},
@@ -42,5 +42,6 @@ export const teamSlice = createSlice({
     },
   },
 });
-
+export const {deleteTeamFromState: deleteTeamFromState,
+} = teamSlice.actions;
 export const useTeamSelector: TypedUseSelectorHook<RootTeamStateInterface> = useSelector;
