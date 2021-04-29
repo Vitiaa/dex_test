@@ -1,16 +1,16 @@
 import React from "react";
-import Auth from "../containers/Auth/Auth";
-import Registration from "../containers/Registration/Registration";
-import TeamCatalog from "../components/Catalog/TeamCatalog";
-import AddTeam from "../components/AddTeam/AddTeam";
-import TeamCard from "../components/TeamDetailCard/TeamCard";
-import AddPlayer from "../components/AddPlayer/AddPlayer";
-import PlayerCatalog from "../components/Catalog/PlayerCatalog/PlayerCatalog";
-import PlayerCard from "../components/PlayerDetailCard/PlayerCard";
-import EditTeam from "../components/EditTeam/editTeam";
 import { PublicLayout } from "../components/layouts/PublicLayout";
+import Auth from "../components/Auth/Auth";
+import Registration from "../components/Registration/Registration";
 import { PrivateLayout } from "../components/layouts/PrivateLayout";
-import EditPlayer from "../components/EditPlayr/editPlayer";
+import TeamCatalog from "../components/Team/TeamCatalog/TeamCatalog";
+import TeamCard from "../components/Team/TeamDetailCard/TeamCard";
+import AddTeam from "../components/Team/AddTeam/AddTeam";
+import EditTeam from "../components/Team/EditTeam/editTeam";
+import AddPlayer from "../components/Player/AddPlayer/AddPlayer";
+import PlayerCatalog from "../components/Player/PlayerCatalog/PlayerCatalog";
+import PlayerCard from "../components/Player/PlayerDetailCard/PlayerCard";
+import EditPlayer from "../components/Player/EditPlayr/editPlayer";
 
 export const routes = [
   {

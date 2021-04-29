@@ -3,15 +3,10 @@ import { TypedUseSelectorHook, useSelector } from "react-redux";
 import {
   addPlayer,
   editPlayer,
-  getPlayers2,
+  getPlayers,
   getTeamsPlayers,
 } from "./asyncAction";
-import {
-  InitialStatePlayerInterface,
-  PlayerInterface,
-  RootPlayerStateInterface,
-} from "./types";
-import { AuthSlice } from "../auth";
+import { InitialStatePlayerInterface, RootPlayerStateInterface } from "./types";
 
 const initialState: InitialStatePlayerInterface = {
   items: [],
@@ -26,18 +21,12 @@ export const PlayerSlice = createSlice({
   name: "players",
   initialState,
   reducers: {
-    deletePlayerFromState: (state, action) => {
-      console.log(state);
-      console.log(action)
-      // const { id } = action.payload;
-      //
-      // const items = state.items;
-      // const index = items.findIndex((item: any) => id === item.id);
-      // items.splice(index, 1);
+    deletePlayerFromState: (state, { payload }) => {
+      state.items = state.items.filter((item: any) => payload !== item.id);
     },
   },
   extraReducers: {
-    [getPlayers2.fulfilled.type]: (state, { payload }) => {
+    [getPlayers.fulfilled.type]: (state, { payload }) => {
       state.items = payload?.data;
       state.loading = false;
       state.count = payload.count;

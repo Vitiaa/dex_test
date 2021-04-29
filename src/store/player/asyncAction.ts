@@ -4,23 +4,23 @@ import { PlayerInterface } from "./types";
 import { addImage } from "../image/asyncActions";
 
 
-export const getPlayers = createAsyncThunk(
-  "player/getPlayers",
-  async (_, dispatch) => {
-    const { data } = await axios.get(
-      `http://dev.trainee.dex-it.ru/api/Player/GetPlayers`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.token}`,
-        },
-      }
-    );
-    console.log(data);
-    return data;
-  }
-);
+// export const getPlayers = createAsyncThunk(
+//   "player/getPlayers",
+//   async (_, dispatch) => {
+//     const { data } = await axios.get(
+//       `http://dev.trainee.dex-it.ru/api/Player/GetPlayers`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${localStorage.token}`,
+//         },
+//       }
+//     );
+//     console.log(data);
+//     return data;
+//   }
+// );
 
-export const getPlayers2 = createAsyncThunk<
+export const getPlayers = createAsyncThunk<
   string,
   { pageNum: number; size: number; name: string | null | unknown },
   any

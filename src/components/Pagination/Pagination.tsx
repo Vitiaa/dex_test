@@ -1,9 +1,9 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 import style from "./Pagination.module.css";
-import { getTeams2 } from "../../store/team/asyncAction";
+import { getTeams } from "../../store/team/asyncAction";
 import { useAppDispatch } from "../../store";
-import { getPlayers2 } from "../../store/player/asyncAction";
+import { getPlayers } from "../../store/player/asyncAction";
 
 export const CustomPagination: React.FC<{
   size: number;
@@ -17,10 +17,10 @@ export const CustomPagination: React.FC<{
     // console.log(TypeCatalog);
     const pageNum = selected;
     if (TypeCatalog == "teams") {
-      dispatch(getTeams2({ pageNum, size, name }));
+      dispatch(getTeams({ pageNum, size, name }));
     }
     if (TypeCatalog == "players") {
-      dispatch(getPlayers2({ pageNum, size, name }));
+      dispatch(getPlayers({ pageNum, size, name }));
     }
   }
 

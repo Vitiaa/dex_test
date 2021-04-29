@@ -3,7 +3,6 @@ import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 import {
   InitialStatePlayerPositionsInterface,
-  PlayerPositionsInterface,
   RootPlayerPositionsStateInterface,
 } from "./types";
 import { getPlayerPositions } from "./asyncActions";
@@ -21,6 +20,7 @@ export const PlayerPositionsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getPlayerPositions.fulfilled.type]: (state, { payload }) => {
+
       const options = payload.map((positions: any) => ({
         value: positions,
         label: positions,
