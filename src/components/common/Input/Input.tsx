@@ -16,6 +16,8 @@ export const Input: React.FC<any> = forwardRef((props, ref) => {
           type={
             props.name === "password" || props.name === "confirmPassword"
               ? inputType
+              : props.name === "birthday"
+              ? "date"
               : "text"
           }
         />
