@@ -46,13 +46,13 @@ const AppWrapper = styled.div`
 height: 100vh;
   display: flex;
   flex-direction: column;
-  //max-height: 1072px;
   background: #f6f6f6;
   z-index: 1;
   main {
   display: flex;
+  width: 1300px;
     //align-items: center;
-    //margin-top:   50px;
+    margin-top:   50px;
     margin-bottom: 30px;
   padding: 0px 50px;
     @media( max-width: 700px) {

@@ -109,6 +109,7 @@ export default MultiSelect;
 const MultiSelectWrapper = styled.div`
 display: flex;
   main-width: 327px;
+  margin-bottom: 10px;
 
   
  
@@ -117,4 +118,13 @@ const Wrapp = styled.div`
   min-width: 327px;
     width: 100%;
   height: 40px;
+  margin-left: 50px;
+    @media (max-width: 1100px) {
+ 
+    margin-left: 10px;
+  }
+    @media (max-width: 1044px) {
+  
+    margin-left: 0px;
+  }
 `

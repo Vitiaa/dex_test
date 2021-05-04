@@ -56,7 +56,7 @@ const TeamCatalog: React.FC = () => {
       items.length ? (
         items.map((item: any) => <CatalogItem key={item.id} item={item} />)
       ) : (
-        <p></p>
+        <p>teams not founded</p>
       ),
     [items]
   );

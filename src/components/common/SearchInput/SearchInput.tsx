@@ -92,6 +92,7 @@ const InputWr = styled.div`
   border-radius: 4px;
   border: none;
   box-shadow: 0px 0px 5px #d9d9d9;
+   margin-bottom: 10px;
 
   :hover {
     background: #d1d1d1;
@@ -117,6 +118,7 @@ const InputWr = styled.div`
     font-size: 14px;
     line-height: 24px;
     padding: 8px 12px 8px 8px;
+    
     :hover {
       background: #d1d1d1;
     }

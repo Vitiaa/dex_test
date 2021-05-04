@@ -82,7 +82,7 @@ const PlayerCatalog: React.FC = () => {
       items.length ? (
         items.map((item: any) => <CatalogItem key={item.id} item={item} />)
       ) : (
-        <p>lol </p>
+        <p>Player not founded </p>
       ),
     [items]
   );
