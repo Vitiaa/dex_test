@@ -33,16 +33,17 @@ const PlayerCard: React.FC = () => {
     return <Redirect to={"/PlayerCatalog"} />;
   }
   return (
-    <AdminLayout hasHeader={true}>
-      {
-        <>
+
+        <CardWrapper>
+          <>
           <CardHeader
-            isPlayer={true}
-            isTeam={false}
-            itemID={Number(playerID)}
-            name={player.name}
+              isPlayer={true}
+              isTeam={false}
+              itemID={Number(playerID)}
+              name={player.name}
           />
           <TeamCardBackground>
+
             <TeamCardWrapper>
               <LeftTeamBlock>
                 <TeamLogo
@@ -91,19 +92,26 @@ const PlayerCard: React.FC = () => {
               </RightTeamBlock>
             </TeamCardWrapper>
           </TeamCardBackground>
-        </>
-      }
-    </AdminLayout>
+            </>
+        </CardWrapper>
+
   );
 };
 
 export default PlayerCard;
+const CardWrapper = styled.div`
+display: flex;
+flex-direction: column;
+margin-top: 50px;
+border-radius: 10px 10px 0px 0px;
+`
 const TeamCardBackground = styled.div`
   background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
   transform: rotate(-180deg);
   max-width: 1140px;
   border-radius: 10px 10px 0px 0px;
-  margin: auto;
+
+  min-width: 375px;
 `;
 const TeamCardWrapper = styled.div`
   display: flex;
@@ -122,9 +130,9 @@ const TeamCardWrapper = styled.div`
 const LeftTeamBlock = styled.div`
   display: flex;
   margin: auto;
-  padding: 0 145px 0;
+  padding: 0px 145px 0px;
   @media ${deviceMax.tablet} {
-    padding: 0;
+    padding: 0px;
     margin-top: 48px;
     margin-bottom: 48px;
   }
@@ -148,22 +156,15 @@ const RightTeamBlock = styled.div`
     text-align: center;
   }
 `;
-const PlayerNameWr = styled.div`
-  margin-bottom: 40px;
-  margin-top: 65px; 
-  display flex;
-`;
 
 const TeamName = styled.h2`
   font-size: 36px;
-
+  margin-bottom: 40px;
+  margin-top: 65px;
   @media ${deviceMax.tablet} {
     font-size: 17px;
     margin-top: 0px;
   }
-`;
-const PlayerNumber = styled(TeamName)`
-  color: #e4163a;
 `;
 const TeamDecription = styled.div`
   display: flex;
@@ -199,3 +200,16 @@ const BreakItem = styled.div`
   flex-basis: 100%;
   height: 0;
 `;
+
+
+const PlayerNameWr = styled.div`
+  margin-bottom: 40px;
+  margin-top: 65px; 
+  display flex;
+`;
+
+
+const PlayerNumber = styled(TeamName)`
+  color: #e4163a;
+`;
+

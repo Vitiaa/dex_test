@@ -77,6 +77,7 @@ const AuthWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background: #ffffff;
+  h1 {font-family: AvenirBook , sans-serif;}
 `;
 const LeftAuthWrap = styled.div`
   max-width: 606px;

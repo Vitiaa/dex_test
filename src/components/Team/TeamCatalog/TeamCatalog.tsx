@@ -5,23 +5,51 @@ import AddButton from "../../common/Button/AddButton";
 import SearchInput from "../../common/SearchInput/SearchInput";
 import CatalogItem from "../../CatalogItem/CatalogItem";
 import { useAppDispatch } from "../../../store";
-import { AdminLayout } from "../../Layout";
+
 import { getTeams } from "../../../store/team/asyncAction";
 import { Link } from "react-router-dom";
 import { useTeamSelector } from "../../../store/team";
 import { CustomPagination } from "../../Pagination/Pagination";
+import { SizeSelect } from "../../common/CustomSelect/CustomSelect";
+import { useQuery } from "../../../hooks/hooks";
+import { getPlayers } from "../../../store/player/asyncAction";
 
 const TeamCatalog: React.FC = () => {
   const dispatch = useAppDispatch();
   const { page, size, items, count } = useTeamSelector((state) => state.teams);
   let unCount = count % 2;
-  const sumPage = Math.floor(count / 6) + 1;
+  const sizeOptions = [
+    { value: 6, label: "6", color: "#9C9C9C" },
+    { value: 12, label: "12", color: "#9C9C9C" },
+    { value: 24, label: "24", color: "#9C9C9C" },
+  ];
+  let sumPage = size ? Math.ceil(count / size) : Math.ceil(count / 6);
+  Number.isInteger(sumPage) ? (sumPage = sumPage) : (sumPage = sumPage + 1);
   const pageNum = page;
   let name = "";
 
+  const query: any = useQuery();
+
   useEffect(() => {
-    dispatch(getTeams({ pageNum, size, name }));
-  }, [page]);
+    query.get("searchText") && query.get("searchText").length > 2
+      ? dispatch(
+          getTeams({
+            pageNum: query.get("page"),
+            size: query.get("size"),
+            name: query.get("searchText"),
+          })
+        )
+      : dispatch(
+          getTeams({
+            pageNum: query.get("page"),
+            size: query.get("size"),
+            name,
+          })
+        );
+  }, [query.get("searchText"), query.get("page"), query.get("size"), ,]);
+  useEffect(() => {
+    dispatch(getTeams({ pageNum: 1, size: 6, name }));
+  }, []);
 
   const teamsList = useMemo(
     () =>
@@ -34,37 +62,66 @@ const TeamCatalog: React.FC = () => {
   );
 
   return (
-    <AdminLayout hasHeader={true}>
+    <>
       <CatalogWrapper>
         <CatalogHeader>
           <>
-            <SearchInput TypeCatalog={"teams"} size={size} />
+            <SearchInput />
           </>
           <Link to={"/AddTeam"}>
             <AddButton />
           </Link>
         </CatalogHeader>
+        <ItemListWrapper>
+          <ItemList>{teamsList}</ItemList>
+        </ItemListWrapper>
 
-        <ItemList>{teamsList}</ItemList>
+        {sumPage > 0 ? (
+          <PaginationWrapper>
+            <CustomPagination
+              TypeCatalog={"players"}
+              sumPage={sumPage}
+              size={size}
+            />
+            <SizeSelect
+              initialValue={size}
+              defaultValue={
+                query.get("size") == 6
+                  ? sizeOptions[0]
+                  : query.get("size") == 12
+                  ? sizeOptions[1]
+                  : query.get("size") == 24
+                  ? sizeOptions[2]
+                  : sizeOptions[0]
+              }
+              options={sizeOptions}
+            />
+          </PaginationWrapper>
+        ) : null}
       </CatalogWrapper>
-      <CustomPagination TypeCatalog={"teams"} sumPage={sumPage} size={size} />
-    </AdminLayout>
+    </>
   );
 };
 
 export default TeamCatalog;
 
 const CatalogWrapper = styled.div`
-  background: #fff;
+  background: #f6f6f6;
   display: flex;
   flex-direction: column;
   max-width: 1140px;
   width: 100%;
   margin-top: 32px;
+
   @media ${deviceMax.mobileXL} {
     justify-content: center;
     margin-bottom: 16px;
   }
+`;
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
 `;
 
 const CatalogHeader = styled.div`
@@ -73,13 +130,21 @@ const CatalogHeader = styled.div`
   margin-bottom: 32px;
   a {
     width: 100%;
-    max-width: 104px;
+
   }
-  @media ${deviceMax.mobileXL} {
+  @media (max-width: 1025px) {
     flex-direction: column;
     justify-content: center;
     margin-bottom: 16px;
   }
+`;
+const LeftHeader = styled.div`
+
+ display: flex;
+ justify-content: space-between;
+   @media (max-width: 1020px) {
+     flex-direction: column;
+   
 `;
 const ItemList = styled.div`
   display: flex;
@@ -87,4 +152,15 @@ const ItemList = styled.div`
   justify-content: space-between;
   max-width: 1300px;
   width: 100%;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+`;
+const ItemListWrapper = styled.div`
+  display: flex;
+  max-height: 65vh;
+  @media (max-width: 700px) {
+    max-height: 60vh;
+  }
 `;

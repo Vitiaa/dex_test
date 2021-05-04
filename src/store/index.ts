@@ -23,10 +23,5 @@ export const store = configureStore({
   middleware,
 });
 
-/*
-  Hook useDispatch for this App
-  AppDispatchType - type
-  useAppDispatch - Hook
- */
 export type AppDispatchType = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatchType>();

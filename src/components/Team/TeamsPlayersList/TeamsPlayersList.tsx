@@ -1,72 +1,67 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import Player_mini_img from "../../../assets/Player_mini_img.png";
 import { deviceMax } from "../../Primitives";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../store";
-
 import { getTeamsPlayers } from "../../../store/player/asyncAction";
 import { usePlayerSelector } from "../../../store/player";
-import CatalogItem from "../../CatalogItem/CatalogItem";
+
 interface IProps2 {
   teamID: number;
 }
 const TeamsPlayersList: React.FC<IProps2> = ({ teamID }) => {
-  // console.log(teamID);
   const dispatch = useAppDispatch();
   const players = usePlayerSelector((state) => state.players?.items);
-  let playerCount = 0;
-  // console.log(players);
   useEffect(() => {
     dispatch(getTeamsPlayers(teamID));
   }, []);
   return (
-    <TeamsPlayersTable>
-      <TableHeader>
-        <tr>
-          <th>Roster</th>
-        </tr>
-      </TableHeader>
-      <tbody>
-        <TableRow>
-          <TDPayerNumber>#</TDPayerNumber>
-          <TDPlayerName>Player</TDPlayerName>
-          <TDPlayerHeight>Height</TDPlayerHeight>
-          <TDPlayerWeight>Weight</TDPlayerWeight>
-          <TDPlayeAge>Age</TDPlayeAge>
-        </TableRow>
+
+      <TeamsPlayersTable2>
+        <TableHeader2>Roster</TableHeader2>
+
+        <TableSuBHeader>
+          <TDPayerNumber2>#</TDPayerNumber2>
+          <TDPlayerInfo2>Player</TDPlayerInfo2>
+
+          <TDPlayerHeight2>Height</TDPlayerHeight2>
+          <TDPlayerWeight2>Weight</TDPlayerWeight2>
+          <TDPlayeAge2>Age</TDPlayeAge2>
+        </TableSuBHeader>
         {players.map((player: any) => {
-          playerCount = playerCount + 1;
+          const now = new Date();
+          const birthday = Number(player?.birthday.substring(0, 4));
+          const age = now.getFullYear() - birthday;
           return (
-            <TableRow key={player.id}>
-              <TDPayerNumber>{playerCount}</TDPayerNumber>
-              <TDPlayerInfo>
+            <TableRow2 key={player.id}>
+              <TDPayerNumber2>{player.number ? player.number : "-"}</TDPayerNumber2>
+              <TDPlayerInfo2>
                 <Link to={`/PlayerCard/${player.id}`}>
-                  <PlayerInfoContainer>
+                  <PlayerInfoContainer2>
                     <PlayerImg
                       src={`http://dev.trainee.dex-it.ru${player.avatarUrl}`}
                     />
-                    <PlayerText>
-                      <PlayerName>{player.name}</PlayerName>
-                      <PlayerPosition>{player.position}</PlayerPosition>
-                    </PlayerText>
-                  </PlayerInfoContainer>
+                    <PlayerText2>
+                      <PlayerName2>{player.name}</PlayerName2>
+                      <PlayerPosition2>{player.position}</PlayerPosition2>
+                    </PlayerText2>
+                  </PlayerInfoContainer2>
                 </Link>
-              </TDPlayerInfo>
-              <TDPlayerHeight>{player.height} cm</TDPlayerHeight>
-              <TDPlayerWeight>{player.weight} kg</TDPlayerWeight>
-              <TDPlayeAge>{player.birthday}</TDPlayeAge>
-            </TableRow>
+              </TDPlayerInfo2>
+              <TDPlayerHeight2>{player.height} cm</TDPlayerHeight2>
+              <TDPlayerWeight2>{player.weight} kg</TDPlayerWeight2>
+              <TDPlayeAge2>{age}</TDPlayeAge2>
+            </TableRow2>
           );
         })}
-      </tbody>
-    </TeamsPlayersTable>
+      </TeamsPlayersTable2>
+
   );
 };
 
 export default TeamsPlayersList;
 
-const TeamsPlayersTable = styled.table`
+const TeamsPlayersTable2 = styled.div`
   max-width: 1140px;
   width: 100%;
   margin: auto;
@@ -78,77 +73,81 @@ const TeamsPlayersTable = styled.table`
   border-spacing: 0;
   text-align: center;
   font-size: 14px;
+  color: #707070;
   @media ${deviceMax.tablet} {
     border-radius: 0px;
   }
 `;
-const TableHeader = styled.thead`
+const TableHeader2 = styled.div`
+  text-align: start;
   margin: 0;
-  border: 0.5px solid #9c9c9c;
+      padding: 14px 45px 14px;
   box-sizing: border-box;
   border-radius: 0px;
-  text-align: center;
+  text-align: start;
   font-size: 18px;
   color: #707070;
   font-style: normal;
-  font-weight: 500;
-  th {
-    padding: 14px 0px 14px;
-  }
+  font-weight: bold;
 `;
-const TableRow = styled.tr`
+const TableSuBHeader = styled.div`
+  display: flex;
+  padding: 8px 0px 8px;
+  border-top: 0.5px solid #9c9c9c;
+  box-sizing: border-box;
+`;
+const TableRow2 = styled.div`
+  border-top: 0.5px solid #9c9c9c;
+  box-sizing: border-box;
+  display: flex;
   padding: 8px 0px 8px;
   box-sizing: border-box;
-  td {
-    border-top: 0.5px solid #9c9c9c;
-    color: #707070;
-    padding: 8px 0px 8px;
-    text-align: start;
-  }
 `;
-const TDPlayerName = styled.td``;
-const TDPayerNumber = styled.td`
+
+const TDPayerNumber2 = styled.div`
   width: 10%;
-  text-align: center !important;
+  text-align: center 
 `;
-const TDPlayerInfo = styled.td`
+const TDPlayerInfo2 = styled.div`
+text-align: start;
   width: 60%;
 `;
-const PlayerInfoContainer = styled.div`
-display flex;
-
-
+const PlayerInfoContainer2 = styled.div`
+  display: flex;
 `;
+
+const PlayerText2 = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const PlayerName2 = styled.p`
+  margin-bottom: 5px;
+`;
+const PlayerPosition2 = styled.p`
+  font-size: 12px;
+`;
+const TDPlayerHeight2 = styled.div`
+  width: 10%;
+  @media ${deviceMax.tablet} {
+    display: none;
+  }
+`;
+const TDPlayerWeight2 = styled.div`
+  width: 10%;
+  @media ${deviceMax.tablet} {
+    display: none;
+  }
+`;
+const TDPlayeAge2 = styled.div`
+  width: 10%;
+  @media ${deviceMax.tablet} {
+    display: none;
+  }
+`;
+
 const PlayerImg = styled.img`
   width: 52px;
   height: 38px;
   margin-right: 10px;
 `;
-const PlayerText = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const PlayerName = styled.p`
-  margin-bottom: 5px;
-`;
-const PlayerPosition = styled.p`
-  font-size: 12px;
-`;
-const TDPlayerHeight = styled.td`
-  width: 10%;
-  @media ${deviceMax.tablet} {
-    display: none;
-  }
-`;
-const TDPlayerWeight = styled.td`
-  width: 10%;
-  @media ${deviceMax.tablet} {
-    display: none;
-  }
-`;
-const TDPlayeAge = styled.td`
-  width: 10%;
-  @media ${deviceMax.tablet} {
-    display: none;
-  }
-`;
+

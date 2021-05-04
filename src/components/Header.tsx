@@ -5,6 +5,7 @@ import { deviceMax } from "./Primitives";
 import profile_svg from "../assets/Icons/profile_rounded.svg";
 import { logout, useAuthSelector } from "../store/auth";
 import { useAppDispatch } from "../store";
+import { SideBar } from "./common/SideBar/SideBar";
 
 export const Header: React.FC = (props) => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,6 @@ export const Header: React.FC = (props) => {
     <header>
       <>
         <HeaderContainer>
-          <button onClick={logoutFunc}>выход</button>
           <LeftBlock>
             <img src={logo} alt="" />
           </LeftBlock>
@@ -31,33 +31,38 @@ export const Header: React.FC = (props) => {
   );
 };
 
-const Menu = styled.div`
-  position: absolute;
-  width: 200px;
-  height: 1400px;
-  margin: 500px;
-
-  margin: 0;
-`;
 const HeaderContainer = styled.div`
   display: flex;
+  z-index: 2;
+  height: 80px;
+
+  width: 100%;
   justify-content: space-between;
   text-align: center;
   background: #ffffff;
   box-shadow: 0px 1px 10px rgba(209, 209, 209, 0.5);
-  padding: 18px 51px 18px;
+  img {
+    margin-left: 50px;
+  }
 
-  @media ${deviceMax.mobileL} {
+  @media (max-width: 670px) {
     justify-content: center;
+    padding: 0px;
+    img {
+      margin: 0;
+    }
   }
 `;
 
-const LeftBlock = styled.div``;
+const LeftBlock = styled.div`
+  align-self: center;
+`;
 const RightBlock = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  @media ${deviceMax.mobileL} {
+
+  @media (max-width: 670px) {
     display: none;
   }
   p {
@@ -70,5 +75,6 @@ const RightBlock = styled.div`
   img {
     width: 30px;
     height: 30px;
+    margin-right: 54px;
   }
 `;
