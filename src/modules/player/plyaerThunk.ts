@@ -44,7 +44,7 @@ export const getPlayers = createAsyncThunk<
 export const getTeamsPlayers = createAsyncThunk(
   "player/getTeamsPlayers",
   async (teamID: number, dispatch) => {
-    console.log(teamID);
+
     const { data } = await axios.get(
       `http://dev.trainee.dex-it.ru/api/Player/GetPlayers?TeamIds=${teamID}`,
       {
@@ -53,7 +53,7 @@ export const getTeamsPlayers = createAsyncThunk(
         },
       }
     );
-    console.log(data);
+
     return data;
   }
 );

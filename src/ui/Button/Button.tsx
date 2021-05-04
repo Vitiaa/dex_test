@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const Button: React.FC<any> = (props: any) => {
-  console.log(props);
   return <ButtonB type="submit">{props.name}</ButtonB>;
 };
 

@@ -9,7 +9,7 @@ export const PrivateLayout: React.FC = ({ children, ...rest }) => {
   const { isAuth, status } = useAuthSelector((state) => state.auth);
 
   useEffect(() => {
-    console.log(status);
+
   }, [status]);
 
   return isAuth ? (

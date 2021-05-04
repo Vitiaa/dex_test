@@ -18,7 +18,7 @@ interface IFormInputAuth {
 
 const Auth: React.FC = () => {
   const ErrorFromServer = useAuthSelector((state) => state.auth?.error);
-  console.log(ErrorFromServer);
+
   const {
     register,
     handleSubmit,

@@ -52,7 +52,7 @@ const EditPlayer: React.FC = () => {
     return { value: item.id, label: item.name, color: "#9C9C9C" };
   });
   useEffect(() => {}, []);
-  console.log(Options);
+
   const onSubmit = (data: any) => {
     data.id = Number(playerID);
 
@@ -92,9 +92,7 @@ const EditPlayer: React.FC = () => {
     asyncConvert();
   }, [image]);
 
-  // @ts-ignore
 
-  // @ts-ignore
   return (
     <FormWrapper>
       <CardHeader
@@ -147,7 +145,8 @@ const EditPlayer: React.FC = () => {
                 <CustomSelect
                   {...field}
                   options={positions}
-                  defaultValue={defaultPlayer?.position}
+                  initialValue={positions[0]}
+                   defaultValue={positions[0]}
                 />
               )}
             />
@@ -180,15 +179,14 @@ const EditPlayer: React.FC = () => {
                 errorMessage={"This field can only have a value of digits"}
               />
             )}
-            {/*@ts-ignore*/}
+
             <Input
               {...register("birthday")}
-              defaultValue={"2017-06-01"}
+              defaultValue={`${defaultPlayer?.birthday.toString().slice(0,10)}`}
               name="birthday"
               type="date"
             />
-            {/*@ts-ignore*/}
-            {/*<input defaultValue={  Date(`${defaultPlayer?.birthday}`)} type="birthday"/>*/}
+
 
             <Input
               {...register("number", { max: 250, pattern: /^[0-9]+$/i })}
