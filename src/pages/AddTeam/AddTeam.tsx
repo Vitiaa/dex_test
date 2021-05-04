@@ -22,7 +22,6 @@ const AddTeam: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const onSubmit = (data: TeamInterface) => {
-    console.log(data);
     dispatch(addTeam(data));
   };
   const convertBase64 = (imageFile: any) => {

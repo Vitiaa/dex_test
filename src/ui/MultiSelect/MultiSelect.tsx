@@ -71,16 +71,16 @@ const MultiSelect: React.FC<any> = forwardRef((props, ref) => {
     if (!query.has("TeamIds")) {
       query.append("TeamIds", data[0].value);
       history.push(`?${query.toString()}`);
-      console.log("1");
+
     } else if (query.has("TeamIds")) {
       query.delete("TeamIds");
       for (const { value } of data) {
         query.append("TeamIds", value);
       }
-      console.log("2");
+
       history.push(`?${query.toString()}`);
     } else {
-      console.log("3");
+
       query.delete("TeamIds");
       history.push(`?${query.toString()}`);
     }

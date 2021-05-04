@@ -17,7 +17,7 @@ const EditTeam: React.FC = () => {
   const defaultTeam = useTeamSelector((state) =>
     state.teams?.items.find((item: any) => item.id === Number(teamID))
   );
-  console.log(defaultTeam);
+
 
   const {
     register,

@@ -4,7 +4,7 @@ import player_img from "../../assets/images/playerErrorSearch.png";
 import team_img from "../../assets/images/teamErrorSearch.png";
 
 export const CatalogEmpty: React.FC<{ pageName: string }> = (pageName) => {
-  console.log(pageName.pageName);
+
   return (
     <CatalogEmptyWrapper>
       <div>

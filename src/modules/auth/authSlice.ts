@@ -16,7 +16,6 @@ export const AuthSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      console.log(state);
       delete localStorage.isAuth;
       delete localStorage.authStatus;
       delete localStorage.token;
@@ -36,7 +35,6 @@ export const AuthSlice = createSlice({
       state.error = true;
     },
     [login.fulfilled.type]: (state, { payload }) => {
-      console.log(payload);
       localStorage.isAuth = true;
       localStorage.token = payload.token;
       localStorage.name = payload.name;
