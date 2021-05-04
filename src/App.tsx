@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Route, Switch } from "react-router-dom";
-import { routes } from "./constants/routes";
+import { routers } from "./pages/routers";
 
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <AppWrapper>
       <Switch>
-        {routes.map((route, index) => (
+        {routers.map((route, index) => (
           <Route
             key={index}
             path={route.path}
