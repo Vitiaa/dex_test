@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Input } from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import { Controller, useForm } from "react-hook-form";
 import { useAppDispatch } from "../../core/redux/store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../../ui/Button/CancelButton";
 import { addPlayer } from "../../modules/player/plyaerThunk";
-import { AdminLayout } from "../../ui/layouts/Layout";
 import { PlayerInterface } from "../../modules/player/types";
 import { getPlayerPositions } from "../../modules/playerPositions/playerPositionsThunk";
 import { useTeamSelector } from "../../modules/team/teamSelector";
@@ -76,142 +75,140 @@ const AddPlayer: React.FC = () => {
   }, [image]);
 
   return (
+    <FormWrapper>
+      <CardHeader
+        isTeam={false}
+        isPlayer={true}
+        name={"Add new player"}
+        itemID={0}
+      />
+      <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
+        <AddTeamWrapper>
+          <LeftAuthWrap>
+            <ImageContainer>
+              <img src={imageUrl} />
 
-      <FormWrapper>
-        <CardHeader
-          isTeam={false}
-          isPlayer={true}
-          name={"Add new player"}
-          itemID={0}
-        />
-        <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
-          <AddTeamWrapper>
-            <LeftAuthWrap>
-              <ImageContainer>
-                <img src={imageUrl} />
-
-                <input {...register("image")} name="image" type="file" />
-                {errors.image && (
-                  <ErrorMessage errorMessage={"This field is recurred"} />
-                )}
-              </ImageContainer>
-            </LeftAuthWrap>
-            <RightAuthWrap>
-              <Input
-                {...register("name", { required: true })}
-                name="name"
-                type="text"
-              />
-              {errors.name && (
+              <input {...register("image")} name="image" type="file" />
+              {errors.image && (
                 <ErrorMessage errorMessage={"This field is recurred"} />
               )}
-              <label htmlFor="">Team</label>
+            </ImageContainer>
+          </LeftAuthWrap>
+          <RightAuthWrap>
+            <Input
+              {...register("name", { required: true })}
+              name="name"
+              type="text"
+            />
+            {errors.name && (
+              <ErrorMessage errorMessage={"This field is recurred"} />
+            )}
+            <label htmlFor="">Team</label>
 
-              <Controller
-                name="team"
-                control={control}
-                render={({ field }) => (
-                  <CustomSelect {...field} options={Options} />
-                )}
+            <Controller
+              name="team"
+              control={control}
+              render={({ field }) => (
+                <CustomSelect {...field} options={Options} />
+              )}
+            />
+            {errors.team && (
+              <ErrorMessage errorMessage={"This field is recurred"} />
+            )}
+
+            <label htmlFor="">Position</label>
+            <Controller
+              name={"position"}
+              control={control}
+              render={({ field }) => (
+                <CustomSelect {...field} options={positions} />
+              )}
+            />
+
+            {errors.position && (
+              <ErrorMessage errorMessage={"This field is recurred"} />
+            )}
+
+            <Input
+              {...register("height", {
+                required: true,
+                max: 200,
+                pattern: /^[0-9]+$/i,
+              })}
+              name="height"
+              type="text"
+            />
+            {errors.height && (
+              <ErrorMessage errorMessage={"This field is recurred"} />
+            )}
+            {errors.height?.type == "max" && (
+              <ErrorMessage errorMessage={"This value is too large "} />
+            )}
+            {errors.height?.type == "pattern" && (
+              <ErrorMessage
+                errorMessage={"This field can only have a value of digits"}
               />
-              {errors.team && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
+            )}
 
-              <label htmlFor="">Position</label>
-              <Controller
-                name={"position"}
-                control={control}
-                render={({ field }) => (
-                  <CustomSelect {...field} options={positions} />
-                )}
+            <Input
+              {...register("weight", {
+                required: true,
+                max: 250,
+                pattern: /^[0-9]+$/i,
+              })}
+              name="weight"
+              type="text"
+            />
+            {errors.weight && (
+              <ErrorMessage errorMessage={"This field is recurred"} />
+            )}
+            {errors.weight?.type == "max" && (
+              <ErrorMessage errorMessage={"This value is too large "} />
+            )}
+            {errors.weight?.type == "pattern" && (
+              <ErrorMessage
+                errorMessage={"This field can only have a value of digits"}
               />
+            )}
 
-              {errors.position && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
+            <Input
+              {...register("birthday", { required: true })}
+              name="birthday"
+              type="date"
+            />
+            {errors.birthday && (
+              <ErrorMessage errorMessage={"This field is recurred"} />
+            )}
 
-              <Input
-                {...register("height", {
-                  required: true,
-                  max: 200,
-                  pattern: /^[0-9]+$/i,
-                })}
-                name="height"
-                type="text"
+            <Input
+              {...register("number", {
+                required: true,
+                max: 250,
+                pattern: /^[0-9]+$/i,
+              })}
+              name="number"
+              type="text"
+            />
+            {errors.number && (
+              <ErrorMessage errorMessage={"This field is recurred"} />
+            )}
+            {errors.number?.type == "max" && (
+              <ErrorMessage errorMessage={"This value is too large "} />
+            )}
+            {errors.number?.type == "pattern" && (
+              <ErrorMessage
+                errorMessage={"This field can only have a value of digits"}
               />
-              {errors.height && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
-              {errors.height?.type == "max" && (
-                <ErrorMessage errorMessage={"This value is too large "} />
-              )}
-              {errors.height?.type == "pattern" && (
-                <ErrorMessage
-                  errorMessage={"This field can only have a value of digits"}
-                />
-              )}
+            )}
 
-              <Input
-                {...register("weight", {
-                  required: true,
-                  max: 250,
-                  pattern: /^[0-9]+$/i,
-                })}
-                name="weight"
-                type="text"
-              />
-              {errors.weight && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
-              {errors.weight?.type == "max" && (
-                <ErrorMessage errorMessage={"This value is too large "} />
-              )}
-              {errors.weight?.type == "pattern" && (
-                <ErrorMessage
-                  errorMessage={"This field can only have a value of digits"}
-                />
-              )}
-
-              <Input
-                {...register("birthday", { required: true })}
-                name="birthday"
-                type="date"
-              />
-              {errors.birthday && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
-
-              <Input
-                {...register("number", {
-                  required: true,
-                  max: 250,
-                  pattern: /^[0-9]+$/i,
-                })}
-                name="number"
-                type="text"
-              />
-              {errors.number && (
-                <ErrorMessage errorMessage={"This field is recurred"} />
-              )}
-              {errors.number?.type == "max" && (
-                <ErrorMessage errorMessage={"This value is too large "} />
-              )}
-              {errors.number?.type == "pattern" && (
-                <ErrorMessage
-                  errorMessage={"This field can only have a value of digits"}
-                />
-              )}
-
-              <ButtonsWrapper>
-                <CancelButton />
-                <Button name={"Save"} />
-              </ButtonsWrapper>
-            </RightAuthWrap>
-          </AddTeamWrapper>
-        </AddTeamForm>
-      </FormWrapper>
-
+            <ButtonsWrapper>
+              <CancelButton />
+              <Button name={"Save"} />
+            </ButtonsWrapper>
+          </RightAuthWrap>
+        </AddTeamWrapper>
+      </AddTeamForm>
+    </FormWrapper>
   );
 };
 
@@ -228,10 +225,10 @@ const FormWrapper = styled.div`
   @media (max-width: 1141px) {
     margin-top: 55px;
   }
-   @media (max-width: 587px) {
+  @media (max-width: 587px) {
     height: 144px;
-      width: 375px;
-      justify-content: center;
+    width: 375px;
+    justify-content: center;
   }
 `;
 const ImageContainer = styled.div`
@@ -247,8 +244,8 @@ const ImageContainer = styled.div`
 
   @media (max-width: 587px) {
     height: 144px;
-      width: 185px;
-          justify-content: center;
+    width: 185px;
+    justify-content: center;
   }
   input {
     height: 100%;
@@ -261,11 +258,11 @@ const ImageContainer = styled.div`
     opacity: 0;
     z-index: 9999;
   }
-  img {  height: 100%;
+  img {
+    height: 100%;
     width: 100%;
 
     border-radius: 10px;
-   
   }
   label {
     display: none;
@@ -290,8 +287,8 @@ const LeftAuthWrap = styled.div`
   max-width: 366px;
   max-height: 261px;
   background: #ffffff;
-   @media (max-width: 587px) {
-          justify-content: center;
+  @media (max-width: 587px) {
+    justify-content: center;
   }
 `;
 
@@ -311,11 +308,11 @@ const RightAuthWrap = styled.div`
   width: 100%;
   height: 100%;
   @media (max-width: 1317px) {
-    margin-left:  50px;
+    margin-left: 50px;
   }
-  
-   @media (max-width: 1143px) {
-    margin-left:  0px;
+
+  @media (max-width: 1143px) {
+    margin-left: 0px;
   }
   @media (max-width: 587px) {
     max-width: 327px;

@@ -6,7 +6,7 @@ import {
   getPlayers,
   getTeamsPlayers,
 } from "./plyaerThunk";
-import { InitialStatePlayerInterface} from "./types";
+import { InitialStatePlayerInterface } from "./types";
 
 const initialState: InitialStatePlayerInterface = {
   items: [],
@@ -47,4 +47,3 @@ export const PlayerSlice = createSlice({
 export const {
   deletePlayerFromState: deletePlayerFromState,
 } = PlayerSlice.actions;
-

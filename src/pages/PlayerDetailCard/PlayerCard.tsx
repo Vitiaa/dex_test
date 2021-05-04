@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import { Redirect, useParams } from "react-router";
 import styled from "styled-components";
 import CardHeader from "./CardHeader";
-import { deviceMax } from "../../components/Primitives";
-import { AdminLayout } from "../../ui/layouts/Layout";
+import { deviceMax } from "../../constants/Primitives";
 import { useAppDispatch } from "../../core/redux/store";
 import { useSelector } from "react-redux";
 import { getTeam } from "../../modules/team/teamThynk";
 import { useTeamSelector } from "../../modules/team/teamSelector";
-import { getPlayers } from "../../modules/player/plyaerThunk";
 
 const PlayerCard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,78 +31,75 @@ const PlayerCard: React.FC = () => {
     return <Redirect to={"/PlayerCatalog"} />;
   }
   return (
-
-        <CardWrapper>
-          <>
-          <CardHeader
-              isPlayer={true}
-              isTeam={false}
-              itemID={Number(playerID)}
-              name={player.name}
-          />
-          <TeamCardBackground>
-
-            <TeamCardWrapper>
-              <LeftTeamBlock>
-                <TeamLogo
-                  src={`http://dev.trainee.dex-it.ru${player.avatarUrl}`}
-                />
-              </LeftTeamBlock>
-              <RightTeamBlock>
-                <PlayerNameWr>
-                  <TeamName>{player.name}</TeamName>
-                  &nbsp;
-                  <PlayerNumber>#{player.number}</PlayerNumber>
-                </PlayerNameWr>
-                <BreakItem />
-                <TeamDecription>
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>Position</TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>
-                      {player.position}
-                    </TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>Team</TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>
-                      {teamForPlayer}
-                    </TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                  <br />
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>Height</TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>
-                      {player.height}&nbsp; сm
-                    </TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>Weight</TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>
-                      {player.weight}&nbsp; kg
-                    </TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                  <br />
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>age</TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>{age}</TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                </TeamDecription>
-              </RightTeamBlock>
-            </TeamCardWrapper>
-          </TeamCardBackground>
-            </>
-        </CardWrapper>
-
+    <CardWrapper>
+      <>
+        <CardHeader
+          isPlayer={true}
+          isTeam={false}
+          itemID={Number(playerID)}
+          name={player.name}
+        />
+        <TeamCardBackground>
+          <TeamCardWrapper>
+            <LeftTeamBlock>
+              <TeamLogo
+                src={`http://dev.trainee.dex-it.ru${player.avatarUrl}`}
+              />
+            </LeftTeamBlock>
+            <RightTeamBlock>
+              <PlayerNameWr>
+                <TeamName>{player.name}</TeamName>
+                &nbsp;
+                <PlayerNumber>#{player.number}</PlayerNumber>
+              </PlayerNameWr>
+              <BreakItem />
+              <TeamDecription>
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>Position</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>
+                    {player.position}
+                  </TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>Team</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>
+                    {teamForPlayer}
+                  </TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+                <br />
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>Height</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>
+                    {player.height}&nbsp; сm
+                  </TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>Weight</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>
+                    {player.weight}&nbsp; kg
+                  </TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+                <br />
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>age</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>{age}</TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+              </TeamDecription>
+            </RightTeamBlock>
+          </TeamCardWrapper>
+        </TeamCardBackground>
+      </>
+    </CardWrapper>
   );
 };
 
 export default PlayerCard;
 const CardWrapper = styled.div`
-display: flex;
-flex-direction: column;
-margin-top: 50px;
-border-radius: 10px 10px 0px 0px;
-`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  border-radius: 10px 10px 0px 0px;
+`;
 const TeamCardBackground = styled.div`
   background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
   transform: rotate(-180deg);
@@ -201,15 +196,12 @@ const BreakItem = styled.div`
   height: 0;
 `;
 
-
 const PlayerNameWr = styled.div`
   margin-bottom: 40px;
   margin-top: 65px; 
   display flex;
 `;
 
-
 const PlayerNumber = styled(TeamName)`
   color: #e4163a;
 `;
-

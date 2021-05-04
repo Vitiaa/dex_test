@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Input } from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import { Controller, useForm } from "react-hook-form";
 import { useAppDispatch } from "../../core/redux/store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../../ui/Button/CancelButton";
-import {getTeams, getTeamsList} from "../../modules/team/teamThynk";
+import { getTeams, getTeamsList } from "../../modules/team/teamThynk";
 import { AdminLayout } from "../../ui/layouts/Layout";
 import { useParams } from "react-router";
 import { useTeamSelector } from "../../modules/team/teamSelector";
@@ -96,127 +96,124 @@ const EditPlayer: React.FC = () => {
 
   // @ts-ignore
   return (
-
-      <FormWrapper>
-        <CardHeader
-          isTeam={false}
-          isPlayer={true}
-          name={"Edit player"}
-          itemID={0}
-        />
-        <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
-          <AddTeamWrapper>
-            <LeftAuthWrap>
-              <ImageContainer>
-                <img
-                  src={
-                    imageUrl
-                      ? imageUrl
-                      : `http://dev.trainee.dex-it.ru${defaultPlayer?.avatarUrl}`
-                  }
-                />
-
-                <input {...register("image")} name="image" type="file" />
-              </ImageContainer>
-            </LeftAuthWrap>
-            <RightAuthWrap>
-              <Input
-                {...register("name", { required: true })}
-                defaultValue={defaultPlayer?.name}
-                name="name"
-                type="text"
-              />
-              <label htmlFor="">Team</label>
-
-              <Controller
-                name="team"
-                control={control}
-                render={({ field }) => (
-                  <CustomSelect
-                    {...field}
-                    defaultValue={defaultPlayer?.team}
-                    options={Options}
-                  />
-                )}
+    <FormWrapper>
+      <CardHeader
+        isTeam={false}
+        isPlayer={true}
+        name={"Edit player"}
+        itemID={0}
+      />
+      <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
+        <AddTeamWrapper>
+          <LeftAuthWrap>
+            <ImageContainer>
+              <img
+                src={
+                  imageUrl
+                    ? imageUrl
+                    : `http://dev.trainee.dex-it.ru${defaultPlayer?.avatarUrl}`
+                }
               />
 
-              <label htmlFor="">Position</label>
-              <Controller
-                name={"position"}
-                control={control}
-                render={({ field }) => (
-                  <CustomSelect
-                    {...field}
-                    options={positions}
-                    defaultValue={defaultPlayer?.position}
-                  />
-                )}
-              />
+              <input {...register("image")} name="image" type="file" />
+            </ImageContainer>
+          </LeftAuthWrap>
+          <RightAuthWrap>
+            <Input
+              {...register("name", { required: true })}
+              defaultValue={defaultPlayer?.name}
+              name="name"
+              type="text"
+            />
+            <label htmlFor="">Team</label>
 
-              <Input
-                {...register("height", { max: 250, pattern: /^[0-9]+$/i })}
-                defaultValue={defaultPlayer?.height}
-                name="height"
-                type="text"
-              />
-              {errors.height?.type == "max" && (
-                <ErrorMessage errorMessage={"This value is too large "} />
-              )}
-              {errors.height?.type == "pattern" && (
-                <ErrorMessage
-                  errorMessage={"This field can only have a value of digits"}
+            <Controller
+              name="team"
+              control={control}
+              render={({ field }) => (
+                <CustomSelect
+                  {...field}
+                  defaultValue={defaultPlayer?.team}
+                  options={Options}
                 />
               )}
-              <Input
-                {...register("weight", { max: 250, pattern: /^[0-9]+$/i })}
-                defaultValue={defaultPlayer?.weight}
-                name="weight"
-                type="text"
-              />
-              {errors.weight?.type == "max" && (
-                <ErrorMessage errorMessage={"This value is too large "} />
-              )}
-              {errors.weight?.type == "pattern" && (
-                <ErrorMessage
-                  errorMessage={"This field can only have a value of digits"}
+            />
+
+            <label htmlFor="">Position</label>
+            <Controller
+              name={"position"}
+              control={control}
+              render={({ field }) => (
+                <CustomSelect
+                  {...field}
+                  options={positions}
+                  defaultValue={defaultPlayer?.position}
                 />
               )}
-              {/*@ts-ignore*/}
-              <Input
-                {...register("birthday")}
+            />
 
-                defaultValue={"2017-06-01"}
-                name="birthday"
-                type="date"
+            <Input
+              {...register("height", { max: 250, pattern: /^[0-9]+$/i })}
+              defaultValue={defaultPlayer?.height}
+              name="height"
+              type="text"
+            />
+            {errors.height?.type == "max" && (
+              <ErrorMessage errorMessage={"This value is too large "} />
+            )}
+            {errors.height?.type == "pattern" && (
+              <ErrorMessage
+                errorMessage={"This field can only have a value of digits"}
               />
-              {/*@ts-ignore*/}
-              {/*<input defaultValue={  Date(`${defaultPlayer?.birthday}`)} type="birthday"/>*/}
-
-              <Input
-                {...register("number", { max: 250, pattern: /^[0-9]+$/i })}
-                defaultValue={defaultPlayer?.number}
-                name="number"
-                type="text"
+            )}
+            <Input
+              {...register("weight", { max: 250, pattern: /^[0-9]+$/i })}
+              defaultValue={defaultPlayer?.weight}
+              name="weight"
+              type="text"
+            />
+            {errors.weight?.type == "max" && (
+              <ErrorMessage errorMessage={"This value is too large "} />
+            )}
+            {errors.weight?.type == "pattern" && (
+              <ErrorMessage
+                errorMessage={"This field can only have a value of digits"}
               />
-              {errors.number?.type == "max" && (
-                <ErrorMessage errorMessage={"This value is too large "} />
-              )}
-              {errors.number?.type == "pattern" && (
-                <ErrorMessage
-                  errorMessage={"This field can only have a value of digits"}
-                />
-              )}
+            )}
+            {/*@ts-ignore*/}
+            <Input
+              {...register("birthday")}
+              defaultValue={"2017-06-01"}
+              name="birthday"
+              type="date"
+            />
+            {/*@ts-ignore*/}
+            {/*<input defaultValue={  Date(`${defaultPlayer?.birthday}`)} type="birthday"/>*/}
 
-              <ButtonsWrapper>
-                <CancelButton />
+            <Input
+              {...register("number", { max: 250, pattern: /^[0-9]+$/i })}
+              defaultValue={defaultPlayer?.number}
+              name="number"
+              type="text"
+            />
+            {errors.number?.type == "max" && (
+              <ErrorMessage errorMessage={"This value is too large "} />
+            )}
+            {errors.number?.type == "pattern" && (
+              <ErrorMessage
+                errorMessage={"This field can only have a value of digits"}
+              />
+            )}
 
-                <Button name={"Update"} />
-              </ButtonsWrapper>
-            </RightAuthWrap>
-          </AddTeamWrapper>
-        </AddTeamForm>
-      </FormWrapper>
+            <ButtonsWrapper>
+              <CancelButton />
 
+              <Button name={"Update"} />
+            </ButtonsWrapper>
+          </RightAuthWrap>
+        </AddTeamWrapper>
+      </AddTeamForm>
+    </FormWrapper>
   );
 };
 
@@ -233,9 +230,9 @@ const FormWrapper = styled.div`
   @media (max-width: 1141px) {
     margin-top: 55px;
   }
-   @media (max-width: 587px) {
-      width: 375px;
-      justify-content: center;
+  @media (max-width: 587px) {
+    width: 375px;
+    justify-content: center;
   }
 `;
 const ImageContainer = styled.div`
@@ -251,8 +248,8 @@ const ImageContainer = styled.div`
 
   @media (max-width: 587px) {
     height: 144px;
-      width: 185px;
-          justify-content: center;
+    width: 185px;
+    justify-content: center;
   }
   input {
     height: 100%;
@@ -265,11 +262,11 @@ const ImageContainer = styled.div`
     opacity: 0;
     z-index: 9999;
   }
-  img {  height: 100%;
+  img {
+    height: 100%;
     width: 100%;
 
     border-radius: 10px;
-   
   }
   label {
     display: none;
@@ -294,8 +291,8 @@ const LeftAuthWrap = styled.div`
   max-width: 366px;
   max-height: 261px;
   background: #ffffff;
-   @media (max-width: 587px) {
-          justify-content: center;
+  @media (max-width: 587px) {
+    justify-content: center;
   }
 `;
 
@@ -315,11 +312,11 @@ const RightAuthWrap = styled.div`
   width: 100%;
   height: 100%;
   @media (max-width: 1317px) {
-    margin-left:  50px;
+    margin-left: 50px;
   }
-  
-   @media (max-width: 1143px) {
-    margin-left:  0px;
+
+  @media (max-width: 1143px) {
+    margin-left: 0px;
   }
   @media (max-width: 587px) {
     max-width: 327px;
@@ -351,4 +348,5 @@ const AddTeamForm = styled.form`
     @media ${deviceMax.tablet} {
       text-align: center;
     }
-  }`
+  }
+`;

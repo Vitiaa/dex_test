@@ -2,15 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Input } from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../core/redux/store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../../ui/Button/CancelButton";
 import { addTeam } from "../../modules/team/teamThynk";
-import { AdminLayout } from "../../ui/layouts/Layout";
 import { TeamInterface } from "../../modules/team/types";
-import { useSelector } from "react-redux";
 import { ErrorMessage } from "../../ui/ErrorList/ErrorMesage";
 
 const AddTeam: React.FC = () => {
@@ -151,9 +149,9 @@ const FormWrapper = styled.div`
   @media (max-width: 1141px) {
     margin-top: 55px;
   }
-   @media (max-width: 587px) {
-      width: 375px;
-      justify-content: center;
+  @media (max-width: 587px) {
+    width: 375px;
+    justify-content: center;
   }
 `;
 const ImageContainer = styled.div`
@@ -169,8 +167,8 @@ const ImageContainer = styled.div`
 
   @media (max-width: 587px) {
     height: 144px;
-      width: 185px;
-          justify-content: center;
+    width: 185px;
+    justify-content: center;
   }
   input {
     height: 100%;
@@ -184,11 +182,10 @@ const ImageContainer = styled.div`
     z-index: 9999;
   }
   img {
-      height: 100%;
+    height: 100%;
     width: 100%;
 
     border-radius: 10px;
-   
   }
   label {
     display: none;
@@ -213,8 +210,8 @@ const LeftAuthWrap = styled.div`
   max-width: 366px;
   max-height: 261px;
   background: #ffffff;
-   @media (max-width: 587px) {
-          justify-content: center;
+  @media (max-width: 587px) {
+    justify-content: center;
   }
 `;
 
@@ -234,11 +231,11 @@ const RightAuthWrap = styled.div`
   width: 100%;
   height: 100%;
   @media (max-width: 1317px) {
-    margin-left:  50px;
+    margin-left: 50px;
   }
-  
-   @media (max-width: 1143px) {
-    margin-left:  0px;
+
+  @media (max-width: 1143px) {
+    margin-left: 0px;
   }
   @media (max-width: 587px) {
     max-width: 327px;

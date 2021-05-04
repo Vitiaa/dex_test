@@ -1,27 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import styled from "styled-components";
 
-
 const Checkbox: React.FC = (...props) => {
-     const [checked, setChecked] = useState(false);
-    return (
-        <CheckboxContainer >
-            <HiddenCheckbox  checked={checked} {...props} />
-            <StyledCheckbox  checked={checked}>
-                <Icon viewBox="0 0 24 24">
-                    <polyline points="20 6 9 17 4 12" />
-                </Icon>
-            </StyledCheckbox>
-        </CheckboxContainer>
-
-
-
-    );
+  const [checked, setChecked] = useState(false);
+  return (
+    <CheckboxContainer>
+      <HiddenCheckbox checked={checked} {...props} />
+      <StyledCheckbox checked={checked}>
+        <Icon viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12" />
+        </Icon>
+      </StyledCheckbox>
+    </CheckboxContainer>
+  );
 };
 
 export default Checkbox;
 
-const HiddenCheckbox = styled.input.attrs({type: 'checkbox'})` 
+const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   border: 0;
   clip: rect(0 0 0 0);
   clippath: inset(50%);
@@ -42,11 +38,11 @@ const Icon = styled.svg`
   stroke: white;
   stroke-width: 2px;
 `;
-const StyledCheckbox = styled.div<{checked:boolean}>`
+const StyledCheckbox = styled.div<{ checked: boolean }>`
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: ${props => (props.checked ? 'salmon' : 'papayawhip')}
+  background: ${(props) => (props.checked ? "salmon" : "papayawhip")}
   border-radius: 3px;
   transition: all 150ms;
 
@@ -55,7 +51,6 @@ const StyledCheckbox = styled.div<{checked:boolean}>`
   }
 
   ${Icon} {
-    visibility: ${props => (props.checked ? 'visible' : 'hidden')}
+    visibility: ${(props) => (props.checked ? "visible" : "hidden")}
   }
-`
-
+`;

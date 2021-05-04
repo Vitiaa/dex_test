@@ -2,8 +2,7 @@ import React from "react";
 import { Redirect, useParams } from "react-router";
 import styled from "styled-components";
 import CardHeader from "../PlayerDetailCard/CardHeader";
-import { deviceMax } from "../../components/Primitives";
-import { AdminLayout } from "../../ui/layouts/Layout";
+import { deviceMax } from "../../constants/Primitives";
 import { useAppDispatch } from "../../core/redux/store";
 import { useSelector } from "react-redux";
 import TeamsPlayersList from "../../ui/TeamsPlayersList/TeamsPlayersList";
@@ -22,66 +21,59 @@ const TeamCard: React.FC = () => {
     return <Redirect to={"/"} />;
   }
   return (
+    <CardWrapper>
+      <>
+        <CardHeader
+          isPlayer={false}
+          isTeam={true}
+          itemID={Number(teamID)}
+          name={team.name}
+        />
+        <TeamCardBackground>
+          <TeamCardWrapper>
+            <LeftTeamBlock>
+              <TeamLogo src={`http://dev.trainee.dex-it.ru${team.imageUrl}`} />
+            </LeftTeamBlock>
+            <RightTeamBlock>
+              <TeamName>{team.name}</TeamName>
+              <BreakItem />
+              <TeamDecription>
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>Year of foundation</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>
+                    {team.foundationYear}
+                  </TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>Division</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>
+                    {team.division}
+                  </TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+                <br />
+                <TeamDecriptionGroup>
+                  <TeamDecriptionTitle>Conference</TeamDecriptionTitle>
+                  <TeamDecriptionSubTitle>
+                    {team.conference}
+                  </TeamDecriptionSubTitle>
+                </TeamDecriptionGroup>
+              </TeamDecription>
+            </RightTeamBlock>
+          </TeamCardWrapper>
+        </TeamCardBackground>
+      </>
 
-      <CardWrapper>
-        <>
-          <CardHeader
-            isPlayer={false}
-            isTeam={true}
-            itemID={Number(teamID)}
-            name={team.name}
-          />
-          <TeamCardBackground>
-            <TeamCardWrapper>
-              <LeftTeamBlock>
-                <TeamLogo
-                  src={`http://dev.trainee.dex-it.ru${team.imageUrl}`}
-                />
-              </LeftTeamBlock>
-              <RightTeamBlock>
-                <TeamName>{team.name}</TeamName>
-                <BreakItem />
-                <TeamDecription>
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>
-                      Year of foundation
-                    </TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>
-                      {team.foundationYear}
-                    </TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>Division</TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>
-                      {team.division}
-                    </TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                  <br />
-                  <TeamDecriptionGroup>
-                    <TeamDecriptionTitle>Conference</TeamDecriptionTitle>
-                    <TeamDecriptionSubTitle>
-                      {team.conference}
-                    </TeamDecriptionSubTitle>
-                  </TeamDecriptionGroup>
-                </TeamDecription>
-              </RightTeamBlock>
-            </TeamCardWrapper>
-          </TeamCardBackground>
-          </>
-
-          <TeamsPlayersList teamID={Number(teamID)} />
-        </CardWrapper>
-
-
+      <TeamsPlayersList teamID={Number(teamID)} />
+    </CardWrapper>
   );
 };
 
 export default TeamCard;
 const CardWrapper = styled.div`
-display: flex;
-flex-direction: column;
-margin-top: 50px;
-`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+`;
 const TeamCardBackground = styled.div`
   background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
   transform: rotate(-180deg);

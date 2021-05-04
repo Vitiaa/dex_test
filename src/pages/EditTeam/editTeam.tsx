@@ -2,15 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Input } from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../core/redux/store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../../ui/Button/CancelButton";
 import { editTeam } from "../../modules/team/teamThynk";
-import { AdminLayout } from "../../ui/layouts/Layout";
 import { TeamInterface } from "../../modules/team/types";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { useTeamSelector } from "../../modules/team/teamSelector";
 
@@ -171,11 +169,11 @@ const ImageContainer = styled.div`
     opacity: 0;
     z-index: 9999;
   }
-  img {  height: 100%;
+  img {
+    height: 100%;
     width: 100%;
 
     border-radius: 10px;
-   
   }
   label {
     display: none;

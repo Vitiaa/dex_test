@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 
 const AddButton = () => {
   return (
@@ -14,20 +14,12 @@ const AddButton = () => {
 
 export default AddButton;
 const ButtonAddWrapper = styled.div`
-  //@media (max-width: 670px) {
-  //  display: flex;
-  //  min-width: 327px;
-  //}
-  //@media (max-width: 700px) {
-  //  max-width: 450px;
-  //  width: 100%;
-  //}
   display: flex;
   justify-content: flex-end;
 `;
 const ButtonAdd = styled.button`
   width: 100%;
- 
+
   background: #e4163a;
   border-radius: 4px;
   color: #ffffff;
@@ -56,15 +48,14 @@ const ButtonAdd = styled.button`
   }
 `;
 const Wrapp = styled.div`
-
-   max-width: 104px;
+  max-width: 104px;
   max-height: 40px;
   width: 100%;
   height: 40px;
-    @media (max-width: 1026px) {
+  @media (max-width: 1026px) {
     min-width: 327px;
-   max-width: none;
-  max-height: none;
+    max-width: none;
+    max-height: none;
     width: 100%;
   }
 `;

@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../../ui/Button/Button";
 import auth_img from "../../assets/images/auth-img.svg";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../core/redux/store";
-import {  useAuthSelector } from "../../modules/auth/authSelector";
+import { useAuthSelector } from "../../modules/auth/authSelector";
 import { login } from "../../modules/auth/authThunk";
 import { Link } from "react-router-dom";
 import { ErrorMessage, ErrorWindow } from "../../ui/ErrorList/ErrorMesage";
@@ -78,7 +78,9 @@ const AuthWrapper = styled.div`
   justify-content: center;
   align-items: center;
   background: #ffffff;
-  h1 {font-family: AvenirBook , sans-serif;}
+  h1 {
+    font-family: AvenirBook, sans-serif;
+  }
 `;
 const LeftAuthWrap = styled.div`
   max-width: 606px;

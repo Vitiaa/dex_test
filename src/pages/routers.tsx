@@ -12,6 +12,7 @@ import PlayerCatalog from "./PlayerCatalog/PlayerCatalog";
 import PlayerCard from "./PlayerDetailCard/PlayerCard";
 import EditPlayer from "./EditPlayr/editPlayer";
 import { AdminLayout } from "../ui/layouts/Layout";
+import { Page_404 } from "./Page_404/Page_404";
 
 export const routers = [
   {
@@ -82,7 +83,7 @@ export const routers = [
     path: "/PlayerCatalog",
     main: () => (
       <PrivateLayout>
-          <PlayerCatalog />
+        <PlayerCatalog />
       </PrivateLayout>
     ),
   },
@@ -101,5 +102,9 @@ export const routers = [
         <EditPlayer />
       </PrivateLayout>
     ),
+  },
+  {
+    path: "*",
+    main: () => <Page_404 />,
   },
 ];

@@ -31,20 +31,20 @@ const CardHeader: React.FC = () => {
 export default CardHeader;
 
 const CardHeaderWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding:0px 32px 0px;
-    background: #FFFFFF;
-    border: 0.5px solid #9C9C9C;
-    box-sizing: border-box;
-    border-radius: 10px 10px 0px 0px;
-    max-width:1140px;
-    width:100%;
-    height:70px;
-    margin: auto;
-    margin-top: 32px; 
-    
-    align-text: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 32px 0px;
+  background: #ffffff;
+  border: 0.5px solid #9c9c9c;
+  box-sizing: border-box;
+  border-radius: 10px 10px 0px 0px;
+  max-width: 1140px;
+  width: 100%;
+  height: 70px;
+  margin: auto;
+  margin-top: 32px;
+
+  align-text: center;
 `;
 const BreadCrumbs = styled.div`
   align-items: center;

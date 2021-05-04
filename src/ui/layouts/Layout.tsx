@@ -1,49 +1,41 @@
 import React from "react";
 import styled from "styled-components";
-import {deviceMax} from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import SearchInput from "../SearchInput/SearchInput";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import {CustomPagination} from "../Pagination/Pagination";
+import { CustomPagination } from "../Pagination/Pagination";
 
 export const AdminLayout: React.FC<{ hasHeader: boolean }> = ({
   children,
   hasHeader,
 }) => {
   return (
-      <ContentWrapper>
-          <CatalogHeader>
-              <>
-                  <SearchInput />
-              </>
+    <ContentWrapper>
+      <CatalogHeader>
+        <>
+          <SearchInput />
+        </>
+      </CatalogHeader>
 
-          </CatalogHeader>
-
-        {children}
-          <CustomPagination
-              TypeCatalog={"players"}
-              sumPage={6}
-              size={6}
-          />
-      </ContentWrapper>
-
+      {children}
+      <CustomPagination TypeCatalog={"players"} sumPage={6} size={6} />
+    </ContentWrapper>
   );
 };
 
 const ContentWrapper = styled.div`
- background: #F6F6F6;
+  background: #f6f6f6;
   display: flex;
   flex-direction: column;
   max-width: 1140px;
   width: 100%;
   margin-top: 32px;
 
-
   @media ${deviceMax.mobileXL} {
     justify-content: center;
     margin-bottom: 16px;
   }
-
 `;
 
 const CatalogHeader = styled.div`
