@@ -94,7 +94,7 @@ export default CardHeader;
 const CardHeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0px 32px 0px;
+  padding: 16px 32px 16px;
   background: #ffffff;
   border: { "0.5px solid #9c9c9c"};
   box-sizing: border-box;
