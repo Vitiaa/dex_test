@@ -42,7 +42,7 @@ const CatalogItem: React.FC<IProps> = ({ item }) => {
         />
         <ItemContent>
           <ItemTitle>
-            <h3>{item.name || item.name}</h3>
+            <p>{item.name || item.name}</p>
             <span>{item.number && `# ${item.number}`}</span>
           </ItemTitle>
           <ItemSubTitle>
@@ -79,10 +79,10 @@ const CatalogImg = styled.img`
   max-width: 274px;
   max-height: 207px;
 
-  @media ${deviceMax.laptop} {
-    max-width: 121px;
-    max-height: 92px;
-  }
+   @media (max-width: 1020px) {
+     max-width: 121px;
+     max-height: 92px;
+   }
 `;
 const ItemContent = styled.div`
   background: #303030;
@@ -95,7 +95,7 @@ const ItemTitle = styled.div`
   margin-top: 19px;
   display: flex;
   align-items: center;
-  h3 {
+  p {
     color: #ffffff;
     font-size: 18px;
   }

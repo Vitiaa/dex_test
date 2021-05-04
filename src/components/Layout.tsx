@@ -1,15 +1,73 @@
-import { Header } from "./Header";
 import React from "react";
-import { PrivateRoute } from "./PrivateRoute";
+import styled from "styled-components";
+import {deviceMax} from "./Primitives";
+import SearchInput from "./common/SearchInput/SearchInput";
+import {Link} from "react-router-dom";
+
+import {CustomPagination} from "./Pagination/Pagination";
 
 export const AdminLayout: React.FC<{ hasHeader: boolean }> = ({
   children,
   hasHeader,
 }) => {
   return (
-    <PrivateRoute>
-      {hasHeader && <Header />}
-      <main>{children}</main>
-    </PrivateRoute>
+      <ContentWrapper>
+          <CatalogHeader>
+              <>
+                  <SearchInput />
+              </>
+
+          </CatalogHeader>
+
+        {children}
+          <CustomPagination
+              TypeCatalog={"players"}
+              sumPage={6}
+              size={6}
+          />
+      </ContentWrapper>
+
   );
 };
+
+const ContentWrapper = styled.div`
+ background: #F6F6F6;
+  display: flex;
+  flex-direction: column;
+  max-width: 1140px;
+  width: 100%;
+  margin-top: 32px;
+
+
+  @media ${deviceMax.mobileXL} {
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+`;
+
+const CatalogHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  a {
+    width: 100%;
+    max-width: 104px;
+  }
+  @media ${deviceMax.mobileXL} {
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+`;
+const ItemList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1300px;
+  width: 100%;
+`;
+
+const NavWrapper = styled.div``;
+const NavItem = styled.div``;
+const Logout = styled.div``;

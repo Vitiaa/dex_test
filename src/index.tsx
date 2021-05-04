@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import './index.css';
 import App from "./App";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
@@ -8,12 +9,6 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 
 const Global = createGlobalStyle`
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Avenir;
-    font-style: normal;
-    text-align: -webkit-center;
 }
 `;
 const theme = {

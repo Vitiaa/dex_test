@@ -11,6 +11,7 @@ import AddPlayer from "../components/Player/AddPlayer/AddPlayer";
 import PlayerCatalog from "../components/Player/PlayerCatalog/PlayerCatalog";
 import PlayerCard from "../components/Player/PlayerDetailCard/PlayerCard";
 import EditPlayer from "../components/Player/EditPlayr/editPlayer";
+import { AdminLayout } from "../components/Layout";
 
 export const routes = [
   {
@@ -46,25 +47,59 @@ export const routes = [
   },
   {
     path: "/TeamCard/:teamID",
-    main: () => <TeamCard />,
+    main: () => (
+      <PrivateLayout>
+        <TeamCard />
+      </PrivateLayout>
+    ),
   },
   {
     path: "/AddTeam",
-    main: () => <AddTeam />,
+    main: () => (
+      <PrivateLayout>
+        <AddTeam />
+      </PrivateLayout>
+    ),
   },
-  { path: "/EditTeam/:teamID", main: () => <EditTeam /> },
+  {
+    path: "/EditTeam/:teamID",
+    main: () => (
+      <PrivateLayout>
+        <EditTeam />
+      </PrivateLayout>
+    ),
+  },
   {
     path: "/AddPlayer",
-    main: () => <AddPlayer />,
+    main: () => (
+      <PrivateLayout>
+        <AddPlayer />
+      </PrivateLayout>
+    ),
   },
 
-  { path: "/PlayerCatalog", main: () => <PlayerCatalog /> },
+  {
+    path: "/PlayerCatalog",
+    main: () => (
+      <PrivateLayout>
+          <PlayerCatalog />
+      </PrivateLayout>
+    ),
+  },
   {
     path: "/PlayerCard/:playerID",
-    main: () => <PlayerCard />,
+    main: () => (
+      <PrivateLayout>
+        <PlayerCard />
+      </PrivateLayout>
+    ),
   },
   {
     path: "/EditPlayer/:playerID",
-    main: () => <EditPlayer />,
+    main: () => (
+      <PrivateLayout>
+        <EditPlayer />
+      </PrivateLayout>
+    ),
   },
 ];

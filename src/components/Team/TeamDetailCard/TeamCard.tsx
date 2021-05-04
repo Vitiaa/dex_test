@@ -22,8 +22,8 @@ const TeamCard: React.FC = () => {
     return <Redirect to={"/"} />;
   }
   return (
-    <AdminLayout hasHeader={true}>
-      {
+
+      <CardWrapper>
         <>
           <CardHeader
             isPlayer={false}
@@ -67,21 +67,28 @@ const TeamCard: React.FC = () => {
               </RightTeamBlock>
             </TeamCardWrapper>
           </TeamCardBackground>
+          </>
 
           <TeamsPlayersList teamID={Number(teamID)} />
-        </>
-      }
-    </AdminLayout>
+        </CardWrapper>
+
+
   );
 };
 
 export default TeamCard;
+const CardWrapper = styled.div`
+display: flex;
+flex-direction: column;
+margin-top: 50px;
+`
 const TeamCardBackground = styled.div`
   background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
   transform: rotate(-180deg);
   max-width: 1140px;
   border-radius: 10px 10px 0px 0px;
   margin: auto;
+  min-width: 375px;
 `;
 const TeamCardWrapper = styled.div`
   display: flex;

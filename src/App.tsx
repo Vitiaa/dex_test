@@ -26,12 +26,13 @@ const App = () => {
 export default App;
 
 const AppWrapper = styled.div`
+
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  //max-height: 1072px;
   background: #fff;
-  font-family: Avenir;
   font-style: normal;
+  font-family: AvenirMedium,sans-serif;
   font-weight: 500;
   font-size: 15px;
   text-align: -webkit-center;

@@ -59,77 +59,91 @@ const EditTeam: React.FC = () => {
   }, [image]);
 
   return (
-    <AdminLayout hasHeader={true}>
-      <>
-        <CardHeader
-          isTeam={true}
-          isPlayer={false}
-          name={"edit team: "}
-          itemID={0}
-        />
-        <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
-          <AddTeamWrapper>
-            <LeftAuthWrap>
-              <ImageContainer>
-                <img
-                  src={
-                    imageUrl
-                      ? imageUrl
-                      : `http://dev.trainee.dex-it.ru${defaultTeam?.imageUrl}`
-                  }
-                />
-
-                <input {...register("image")} name="image" type="file" />
-              </ImageContainer>
-            </LeftAuthWrap>
-            <RightAuthWrap>
-              <Input
-                {...register("name", {
-                  minLength: 3,
-                  required: true,
-                })}
-                defaultValue={defaultTeam?.name}
-                name="name"
-                type="text"
-              />
-              {errors.name && <span>This field is required</span>}
-
-              <Input
-                {...register("division", { required: true, minLength: 3 })}
-                name="division"
-                type="text"
-                defaultValue={defaultTeam?.division}
+    <FormWrapper>
+      <CardHeader
+        isTeam={true}
+        isPlayer={false}
+        name={"edit team: "}
+        itemID={0}
+      />
+      <AddTeamForm onSubmit={handleSubmit(onSubmit)}>
+        <AddTeamWrapper>
+          <LeftAuthWrap>
+            <ImageContainer>
+              <img
+                src={
+                  imageUrl
+                    ? imageUrl
+                    : `http://dev.trainee.dex-it.ru${defaultTeam?.imageUrl}`
+                }
               />
 
-              <Input
-                {...register("conference")}
-                name="conference"
-                type="text"
-                defaultValue={defaultTeam?.conference}
-              />
+              <input {...register("image")} name="image" type="file" />
+            </ImageContainer>
+          </LeftAuthWrap>
+          <RightAuthWrap>
+            <Input
+              {...register("name", {
+                minLength: 3,
+                required: true,
+              })}
+              defaultValue={defaultTeam?.name}
+              name="name"
+              type="text"
+            />
+            {errors.name && <span>This field is required</span>}
 
-              <Input
-                {...register("foundationYear")}
-                name="foundationYear"
-                type="text"
-                defaultValue={defaultTeam?.foundationYear}
-              />
+            <Input
+              {...register("division", { required: true, minLength: 3 })}
+              name="division"
+              type="text"
+              defaultValue={defaultTeam?.division}
+            />
 
-              <ButtonsWrapper>
-                <CancelButton />
+            <Input
+              {...register("conference")}
+              name="conference"
+              type="text"
+              defaultValue={defaultTeam?.conference}
+            />
 
-                <Button name={"Update"} />
-              </ButtonsWrapper>
-            </RightAuthWrap>
-          </AddTeamWrapper>
-        </AddTeamForm>
-      </>
-    </AdminLayout>
+            <Input
+              {...register("foundationYear")}
+              name="foundationYear"
+              type="text"
+              defaultValue={defaultTeam?.foundationYear}
+            />
+
+            <ButtonsWrapper>
+              <CancelButton />
+
+              <Button name={"Update"} />
+            </ButtonsWrapper>
+          </RightAuthWrap>
+        </AddTeamWrapper>
+      </AddTeamForm>
+    </FormWrapper>
   );
 };
 
 export default EditTeam;
 
+const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  width: 65vw;
+  max-width: 65vw;
+  border-radius: 10px 10px 10px 10px;
+  min-width: 375px;
+  @media (max-width: 1141px) {
+    margin-top: 55px;
+  }
+  @media (max-width: 587px) {
+    width: 375px;
+    justify-content: center;
+  }
+`;
 const ImageContainer = styled.div`
   max-width: 366px;
   width: 366px;
@@ -140,7 +154,12 @@ const ImageContainer = styled.div`
   background: #9c9c9c;
   opacity: 0.5;
   border-radius: 10px;
-  margin-right: 136px;
+
+  @media (max-width: 587px) {
+    height: 144px;
+    width: 185px;
+    justify-content: center;
+  }
   input {
     height: 100%;
     width: 100%;
@@ -152,12 +171,11 @@ const ImageContainer = styled.div`
     opacity: 0;
     z-index: 9999;
   }
-  img {
-    max-width: 336px;
+  img {  height: 100%;
     width: 100%;
-    height: 100%;
-    max-height: 261px;
+
     border-radius: 10px;
+   
   }
   label {
     display: none;
@@ -166,10 +184,15 @@ const ImageContainer = styled.div`
 
 const AddTeamWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
+  background: #ffffff;
   max-width: 1140px;
   flex-direction: row;
   background: #ffffff;
   border-radius: 10px 10px 0px 0px;
+  @media (max-width: 1141px) {
+    flex-direction: column;
+  }
 `;
 const LeftAuthWrap = styled.div`
   display: flex;
@@ -177,6 +200,9 @@ const LeftAuthWrap = styled.div`
   max-width: 366px;
   max-height: 261px;
   background: #ffffff;
+  @media (max-width: 587px) {
+    justify-content: center;
+  }
 `;
 
 const ButtonsWrapper = styled.div`
@@ -188,19 +214,39 @@ const ButtonsWrapper = styled.div`
 `;
 
 const RightAuthWrap = styled.div`
+  margin-left: 136px;
   display: flex;
   flex-direction: column;
   max-width: 366px;
   width: 100%;
   height: 100%;
+  @media (max-width: 1317px) {
+    margin-left: 50px;
+  }
+
+  @media (max-width: 1143px) {
+    margin-left: 0px;
+  }
+  @media (max-width: 587px) {
+    max-width: 327px;
+
+    align-self: center;
+  }
 `;
 
 const AddTeamForm = styled.form`
+  background: #ffffff;
   display: flex;
   align-items: center;
   flex-direction: column;
+  max-width: 100%;
+  width: 100%;
   margin: auto;
   margin-top: 48px;
+  margin-bottom: 48px;
+  @media (max-width: 1141px) {
+    margin-top: 0;
+  }
   h1 {
     margin: 0;
     margin-bottom: 32px;
