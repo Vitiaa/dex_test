@@ -21,5 +21,3 @@ export const imgSlice = createSlice({
     },
   },
 });
-
-

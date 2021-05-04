@@ -3,7 +3,6 @@ import axios from "axios";
 import { PlayerInterface } from "./types";
 import { addImage } from "../image/imageThunk";
 
-
 // export const getPlayers = createAsyncThunk(
 //   "player/getPlayers",
 //   async (_, dispatch) => {
@@ -22,20 +21,21 @@ import { addImage } from "../image/imageThunk";
 
 export const getPlayers = createAsyncThunk<
   string,
-  { pageNum: number; size: number; name: string | null | unknown , TeamIds: []},
+  { pageNum: number; size: number; name: string | null | unknown; TeamIds: [] },
   any
 >(
   "player/getPlayers",
   async ({ pageNum = 1, size = 6, name, TeamIds }, { dispatch }) => {
     const { data } = await axios.get(
-      `http://dev.trainee.dex-it.ru/api/Player/GetPlayers?${TeamIds.map((teamId:number, index:number) => `TeamIds[${index}]=${teamId}`).join('&')}`,
+      `http://dev.trainee.dex-it.ru/api/Player/GetPlayers?${TeamIds.map(
+        (teamId: number, index: number) => `TeamIds[${index}]=${teamId}`
+      ).join("&")}`,
       {
         headers: {
           Authorization: `Bearer ${localStorage.token}`,
         },
-         params: { Name: name, Page: pageNum, PageSize: size,  },
-      },
-
+        params: { Name: name, Page: pageNum, PageSize: size },
+      }
     );
 
     return data;
@@ -121,9 +121,6 @@ export const deletePlayer = createAsyncThunk(
       }
     );
 
-
-
     return data;
   }
-
 );

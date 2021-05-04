@@ -5,7 +5,6 @@ import { useAppDispatch } from "../../core/redux/store";
 import { useAuthSelector } from "../../modules/auth/authSelector";
 import { logout } from "../../modules/auth/authSlice";
 
-
 export const SideBar: React.FC = (props) => {
   const dispatch = useAppDispatch();
   function logoutFunc() {

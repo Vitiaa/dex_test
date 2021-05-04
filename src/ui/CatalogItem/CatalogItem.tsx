@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import { Link } from "react-router-dom";
 import { useTeamSelector } from "../../modules/team/teamSelector";
 
@@ -79,10 +79,10 @@ const CatalogImg = styled.img`
   max-width: 274px;
   max-height: 207px;
 
-   @media (max-width: 1020px) {
-     max-width: 121px;
-     max-height: 92px;
-   }
+  @media (max-width: 1020px) {
+    max-width: 121px;
+    max-height: 92px;
+  }
 `;
 const ItemContent = styled.div`
   background: #303030;

@@ -2,17 +2,11 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useQuery } from "../../hooks/hooks";
 import { useForm } from "react-hook-form";
-import {useHistory} from "react-router";
+import { useHistory } from "react-router";
 import search_rounded from "../../assets/Icons/search_rounded.svg";
 
-
 const SearchInput: React.FC = () => {
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-  } = useForm<{
+  const { register, handleSubmit, watch } = useForm<{
     searchText: string;
   }>();
 
@@ -20,66 +14,49 @@ const SearchInput: React.FC = () => {
 
   const query = useQuery();
   const history = useHistory();
-  // useEffect(() => {
-  //   if (searchText) {
-  //     query.delete("page");
-  //
-  //     if (!query.has("searchText") && searchText) {
-  //       query.append("searchText", searchText);
-  //       console.log(query);
-  //       history.push(`?${query.toString()}`)
-  //     } else if (query.has("searchText") && searchText) {
-  //       query.set("searchText", searchText);
-  //       console.log(query);
-  //       history.push(`?${query.toString()}`)
-  //     } else {
-  //       query.delete("searchText");
-  //       history.push(`?${query.toString()}`)
-  //     }
-  //   }
-  // }, [searchText]);
- const searchReuest = watch("searchText")
-   const imageSubmit = () => {
-     const searchText = searchReuest;
-     query.delete("page");
 
-     if (!query.has("searchText") && searchText) {
-       query.append("searchText", searchText);
-       history.push(`?${query.toString()}`)
-     } else if (query.has("searchText") && searchText) {
-       query.set("searchText", searchText);
-       history.push(`?${query.toString()}`)
-     } else {
-       query.delete("searchText");
-       history.push(`?${query.toString()}`)
-     }
+  const searchReuest = watch("searchText");
+  const imageSubmit = () => {
+    const searchText = searchReuest;
+    query.delete("page");
 
-   }
+    if (!query.has("searchText") && searchText) {
+      query.append("searchText", searchText);
+      history.push(`?${query.toString()}`);
+    } else if (query.has("searchText") && searchText) {
+      query.set("searchText", searchText);
+      history.push(`?${query.toString()}`);
+    } else {
+      query.delete("searchText");
+      history.push(`?${query.toString()}`);
+    }
+  };
   function onPushSearchText({ searchText }: { searchText: string }) {
     query.delete("page");
 
     if (!query.has("searchText") && searchText) {
       query.append("searchText", searchText);
-       history.push(`?${query.toString()}`)
+      history.push(`?${query.toString()}`);
     } else if (query.has("searchText") && searchText) {
       query.set("searchText", searchText);
-       history.push(`?${query.toString()}`)
+      history.push(`?${query.toString()}`);
     } else {
       query.delete("searchText");
-       history.push(`?${query.toString()}`)
+      history.push(`?${query.toString()}`);
     }
   }
   return (
-      <form onSubmit={handleSubmit(onPushSearchText)}
-
-      >
-        {" "}
-        <InputWr>
-          <input type="text" defaultValue={query.get('searchText') || ""} {...register("searchText")} />
-         <img  onClick={imageSubmit} src={search_rounded} alt=""  />
-
-        </InputWr>
-      </form>
+    <form onSubmit={handleSubmit(onPushSearchText)}>
+      {" "}
+      <InputWr>
+        <input
+          type="text"
+          defaultValue={query.get("searchText") || ""}
+          {...register("searchText")}
+        />
+        <img onClick={imageSubmit} src={search_rounded} alt="" />
+      </InputWr>
+    </form>
   );
 };
 
@@ -92,7 +69,7 @@ const InputWr = styled.div`
   border-radius: 4px;
   border: none;
   box-shadow: 0px 0px 5px #d9d9d9;
-   margin-bottom: 10px;
+  margin-bottom: 10px;
 
   :hover {
     background: #d1d1d1;
@@ -101,8 +78,8 @@ const InputWr = styled.div`
     box-shadow: 0px 0px 5px #d9d9d9;
   }
   img {
-      background: white;
-      cursor: pointer;
+    background: white;
+    cursor: pointer;
   }
 
   input {
@@ -112,13 +89,13 @@ const InputWr = styled.div`
     display: block;
     box-sizing: border-box;
     outline: none;
-      background: #fff;
+    background: #fff;
     border: none;
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
     padding: 8px 12px 8px 8px;
-    
+
     :hover {
       background: #d1d1d1;
     }

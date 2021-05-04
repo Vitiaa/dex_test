@@ -1,13 +1,7 @@
-import { createSlice} from "@reduxjs/toolkit";
-import {
-  InitialStateRegistrationInterface,
+import { createSlice } from "@reduxjs/toolkit";
+import { InitialStateRegistrationInterface } from "./types";
 
-} from "./types";
-
-import {RegistrationUser} from "./registerThunck"
-
-
-
+import { RegistrationUser } from "./registerThunck";
 
 const initialState: InitialStateRegistrationInterface = {
   user: [],
@@ -22,9 +16,6 @@ export const RegistrationSlice = createSlice({
   extraReducers: {
     [RegistrationUser.fulfilled.type]: (state, { payload }) => {
       state.user = payload;
-
     },
   },
 });
-
-

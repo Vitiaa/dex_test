@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import AddButton from "../../ui/Button/AddButton";
 import SearchInput from "../../ui/SearchInput/SearchInput";
 import CatalogItem from "../../ui/CatalogItem/CatalogItem";
@@ -13,6 +13,7 @@ import { CustomPagination } from "../../ui/Pagination/Pagination";
 import { SizeSelect } from "../../ui/CustomSelect/CustomSelect";
 import { useQuery } from "../../hooks/hooks";
 import { getPlayers } from "../../modules/player/plyaerThunk";
+import { CatalogEmpty } from "../../ui/CatalogEmpty/CatalogEmpty";
 
 const TeamCatalog: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -56,7 +57,7 @@ const TeamCatalog: React.FC = () => {
       items.length ? (
         items.map((item: any) => <CatalogItem key={item.id} item={item} />)
       ) : (
-        <p>teams not founded</p>
+        <CatalogEmpty pageName={"teams"} />
       ),
     [items]
   );
@@ -130,7 +131,6 @@ const CatalogHeader = styled.div`
   margin-bottom: 32px;
   a {
     width: 100%;
-
   }
   @media (max-width: 1025px) {
     flex-direction: column;

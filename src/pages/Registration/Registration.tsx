@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Input } from "../../ui/Input/Input";
 import Button from "../../ui/Button/Button";
 import Registration_img from "../../assets/images/Registration-img.svg";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../core/redux/store";
 import { RegistrationUser } from "../../modules/register/registerThunck";

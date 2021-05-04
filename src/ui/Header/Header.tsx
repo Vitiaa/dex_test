@@ -2,30 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/images/logo.png";
 import profile_svg from "../../assets/Icons/profile_rounded.svg";
-import {  useAuthSelector } from "../../modules/auth/authSelector";
-
-import { useAppDispatch } from "../../core/redux/store";
-
+import { useAuthSelector } from "../../modules/auth/authSelector";
 
 export const Header: React.FC = (props) => {
-  const dispatch = useAppDispatch();
-
-
   const userName = useAuthSelector((state) => state.auth.name);
   return (
-    <header>
-      <>
-        <HeaderContainer>
-          <LeftBlock>
-            <img src={logo} alt="" />
-          </LeftBlock>
-          <RightBlock>
-            <p>{userName}</p>
-            <img src={profile_svg} alt="" />
-          </RightBlock>
-        </HeaderContainer>
-      </>
-    </header>
+    <>
+      <HeaderContainer>
+        <LeftBlock>
+          <img src={logo} alt="" />
+        </LeftBlock>
+        <RightBlock>
+          <p>{userName}</p>
+          <img src={profile_svg} alt="" />
+        </RightBlock>
+      </HeaderContainer>
+    </>
   );
 };
 

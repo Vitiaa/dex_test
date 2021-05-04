@@ -2,8 +2,8 @@ import React from "react";
 import ReactPaginate from "react-paginate";
 import style from "./Pagination.module.css";
 import { useAppDispatch } from "../../core/redux/store";
-import {useQuery} from "../../hooks/hooks";
-import {useHistory} from "react-router";
+import { useQuery } from "../../hooks/hooks";
+import { useHistory } from "react-router";
 // import style from "src/components/Pagination/Pagination.module.css";
 
 export const CustomPagination: React.FC<{
@@ -21,25 +21,23 @@ export const CustomPagination: React.FC<{
 
       if (!query.has("page") && selected) {
         query.append("page", selected);
-        history.push(`?${query.toString()}`)
+        history.push(`?${query.toString()}`);
       } else if (query.has("page") && selected) {
         query.set("page", selected);
-        history.push(`?${query.toString()}`)
+        history.push(`?${query.toString()}`);
       } else {
         query.delete("page");
-        history.push(`?${query.toString()}`)
+        history.push(`?${query.toString()}`);
       }
     }
   }
 
-
-
   return (
     <ReactPaginate
-        activeClassName={style.activePage}
-        activeLinkClassName = {style.activePage}
-        pageLinkClassName={style.page}
-        // initialPage={ 1}
+      activeClassName={style.activePage}
+      activeLinkClassName={style.activePage}
+      pageLinkClassName={style.page}
+      // initialPage={ 1}
       previousLabel={"<"}
       nextLabel={">"}
       breakLabel={"..."}
@@ -49,9 +47,8 @@ export const CustomPagination: React.FC<{
       pageRangeDisplayed={5}
       onPageChange={onPageChange}
       containerClassName={style.pagination}
-        previousLinkClassName={style.arrow}
-        nextLinkClassName={style.arrow}
-
+      previousLinkClassName={style.arrow}
+      nextLinkClassName={style.arrow}
     />
   );
 };

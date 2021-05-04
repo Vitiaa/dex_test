@@ -25,7 +25,7 @@ const colourStyles = {
           : "black"
         : data.color,
       cursor: isDisabled ? "not-allowed" : "default",
-      border: isFocused  ? 'none' : 'none',
+      border: isFocused ? "none" : "none",
 
       ":active": {
         ...styles[":active"],
@@ -64,8 +64,6 @@ const colourStyles = {
   }),
 };
 
-
-
 export const CustomSelect: React.FC<any> = forwardRef((props, ref) => {
   return (
     <SelectWrapper>
@@ -74,11 +72,11 @@ export const CustomSelect: React.FC<any> = forwardRef((props, ref) => {
   );
 });
 
-export const SizeSelect: React.FC<any> = forwardRef((props,ref) => {
+export const SizeSelect: React.FC<any> = forwardRef((props, ref) => {
   const query: any = useQuery();
   const history = useHistory();
   function onPushSearchText(value: any) {
-    let size = value
+    let size = value;
     query.delete("size");
 
     if (!query.has("size") && size) {
@@ -97,7 +95,7 @@ export const SizeSelect: React.FC<any> = forwardRef((props,ref) => {
       <Select
         onChange={(value) => onPushSearchText(value?.value)}
         {...props}
-          ref={ref}
+        ref={ref}
         styles={colourStyles}
       />
     </SizeSelectWrapper>

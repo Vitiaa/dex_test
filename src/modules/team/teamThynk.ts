@@ -4,7 +4,6 @@ import { TeamInterface } from "./types";
 import { addImage } from "../image/imageThunk";
 import axios from "axios";
 
-
 export const getTeamsList = createAsyncThunk(
   "team/getTeamsList",
   async (_, dispatch) => {
@@ -59,42 +58,50 @@ export const getTeam = createAsyncThunk(
 );
 
 export const addTeam = createAsyncThunk<string, TeamInterface, any>(
-    "team/addTeam",
-    async (params, { dispatch }) => {
-        const { payload } = await dispatch(addImage(params.image));
+  "team/addTeam",
+  async (params, { dispatch }) => {
+    const { payload } = await dispatch(addImage(params.image));
 
-        const { data } = await axios.post(`http://dev.trainee.dex-it.ru/api/Team/Add`, {
-            name: params.name,
-            foundationYear: Number(params.foundationYear),
-            division: params.division,
-            conference: params.conference,
-            imageUrl: payload,
-        }, {
-            headers: {
-                Authorization: `Bearer ${localStorage.token}`,
-            },
-        });
-        return data;
-    }
+    const { data } = await axios.post(
+      `http://dev.trainee.dex-it.ru/api/Team/Add`,
+      {
+        name: params.name,
+        foundationYear: Number(params.foundationYear),
+        division: params.division,
+        conference: params.conference,
+        imageUrl: payload,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      }
+    );
+    return data;
+  }
 );
 export const editTeam = createAsyncThunk<string, TeamInterface, any>(
-    "team/editTeam",
-    async (params, { dispatch }) => {
-        const { payload } = await dispatch(addImage(params.image));
-        const { data } = await axios.put(`http://dev.trainee.dex-it.ru/api/Team/Update?id=${params.id}`, {
-            name: params.name,
-            foundationYear: Number(params.foundationYear),
-            division: params.division,
-            conference: params.conference,
-            imageUrl: payload,
-            id: params.id,
-        },{
-            headers: {
-                Authorization: `Bearer ${localStorage.token}`,
-            },
-        });
-        return data;
-    }
+  "team/editTeam",
+  async (params, { dispatch }) => {
+    const { payload } = await dispatch(addImage(params.image));
+    const { data } = await axios.put(
+      `http://dev.trainee.dex-it.ru/api/Team/Update?id=${params.id}`,
+      {
+        name: params.name,
+        foundationYear: Number(params.foundationYear),
+        division: params.division,
+        conference: params.conference,
+        imageUrl: payload,
+        id: params.id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      }
+    );
+    return data;
+  }
 );
 export const deleteTeam = createAsyncThunk(
   "team/addTeam",

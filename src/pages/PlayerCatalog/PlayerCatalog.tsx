@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import styled from "styled-components";
-import { deviceMax } from "../../components/Primitives";
+import { deviceMax } from "../../constants/Primitives";
 import AddButton from "../../ui/Button/AddButton";
 import SearchInput from "../../ui/SearchInput/SearchInput";
 import CatalogItem from "../../ui/CatalogItem/CatalogItem";
@@ -14,11 +14,9 @@ import { getTeamsList } from "../../modules/team/teamThynk";
 
 import { useQuery } from "../../hooks/hooks";
 
-import {
-
-  SizeSelect
-} from "../../ui/CustomSelect/CustomSelect";
+import { SizeSelect } from "../../ui/CustomSelect/CustomSelect";
 import { useTeamSelector } from "../../modules/team/teamSelector";
+import { CatalogEmpty } from "../../ui/CatalogEmpty/CatalogEmpty";
 
 const sizeOptions = [
   { value: 6, label: "6", color: "#9C9C9C" },
@@ -69,7 +67,7 @@ const PlayerCatalog: React.FC = () => {
     dispatch(getTeamsList());
     dispatch(
       getPlayers({
-        pageNum : query.get("page"),
+        pageNum: query.get("page"),
         size: query.get("size") !== null ? query.get("size") : 6,
         name,
         TeamIds: [],
@@ -81,7 +79,7 @@ const PlayerCatalog: React.FC = () => {
       items.length ? (
         items.map((item: any) => <CatalogItem key={item.id} item={item} />)
       ) : (
-        <p>Player not founded </p>
+        <CatalogEmpty pageName={"players"} />
       ),
     [items]
   );
@@ -89,10 +87,8 @@ const PlayerCatalog: React.FC = () => {
   return (
     <CatalogWrapper>
       <CatalogHeader>
-
         <SearchInput />
         <MultiSelect options={Options} />
-
 
         <Link to={"/AddPlayer"}>
           <AddButton />
@@ -110,7 +106,7 @@ const PlayerCatalog: React.FC = () => {
             size={size}
           />
           <SizeSelect
-              initialValue={size}
+            initialValue={size}
             defaultValue={
               query.get("size") == 6
                 ? sizeOptions[0]
@@ -144,9 +140,8 @@ const CatalogWrapper = styled.div`
   }
 `;
 const SearchWrapper = styled.div`
-display: flex;
-
-`
+  display: flex;
+`;
 const PaginationWrapper = styled.div`
   display: flex;
   justify-content: space-between;

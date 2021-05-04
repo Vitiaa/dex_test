@@ -68,38 +68,36 @@ const MultiSelect: React.FC<any> = forwardRef((props, ref) => {
   const history = useHistory();
 
   function onPushTeamsId(data: any) {
-
-      if (!query.has("TeamIds")) {
-
-        query.append("TeamIds", data[0].value);
-        history.push(`?${query.toString()}`);
-        console.log("1")
-      } else if (query.has("TeamIds")) {
-        query.delete("TeamIds")
-        for (const {value} of data) {
-          query.append("TeamIds", value);
-        }
-       console.log("2")
-        history.push(`?${query.toString()}`);
-      } else {
-        console.log("3")
-        query.delete("TeamIds");
-        history.push(`?${query.toString()}`);
+    if (!query.has("TeamIds")) {
+      query.append("TeamIds", data[0].value);
+      history.push(`?${query.toString()}`);
+      console.log("1");
+    } else if (query.has("TeamIds")) {
+      query.delete("TeamIds");
+      for (const { value } of data) {
+        query.append("TeamIds", value);
       }
+      console.log("2");
+      history.push(`?${query.toString()}`);
+    } else {
+      console.log("3");
+      query.delete("TeamIds");
+      history.push(`?${query.toString()}`);
+    }
   }
 
   return (
     <MultiSelectWrapper>
       <Wrapp>
-      <Select
-        ref={ref}
-        {...props}
-        style={"height: 44px;"}
-        closeMenuOnSelect={false}
-        isMulti
-        onChange={onPushTeamsId}
-        styles={colourStyles}
-      />
+        <Select
+          ref={ref}
+          {...props}
+          style={"height: 44px;"}
+          closeMenuOnSelect={false}
+          isMulti
+          onChange={onPushTeamsId}
+          styles={colourStyles}
+        />
       </Wrapp>
     </MultiSelectWrapper>
   );
@@ -107,24 +105,19 @@ const MultiSelect: React.FC<any> = forwardRef((props, ref) => {
 
 export default MultiSelect;
 const MultiSelectWrapper = styled.div`
-display: flex;
+  display: flex;
   main-width: 327px;
   margin-bottom: 10px;
-
-  
- 
 `;
 const Wrapp = styled.div`
   min-width: 327px;
-    width: 100%;
+  width: 100%;
   height: 40px;
   margin-left: 50px;
-    @media (max-width: 1100px) {
- 
+  @media (max-width: 1100px) {
     margin-left: 10px;
   }
-    @media (max-width: 1044px) {
-  
+  @media (max-width: 1044px) {
     margin-left: 0px;
   }
-`
+`;

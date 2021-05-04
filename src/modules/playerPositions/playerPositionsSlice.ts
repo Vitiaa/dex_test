@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 import {
   InitialStatePlayerPositionsInterface,
   RootPlayerPositionsStateInterface,
@@ -20,7 +19,6 @@ export const PlayerPositionsSlice = createSlice({
   reducers: {},
   extraReducers: {
     [getPlayerPositions.fulfilled.type]: (state, { payload }) => {
-
       const options = payload.map((positions: any) => ({
         value: positions,
         label: positions,
@@ -30,5 +28,3 @@ export const PlayerPositionsSlice = createSlice({
     },
   },
 });
-
-
