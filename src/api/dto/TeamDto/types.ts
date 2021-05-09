@@ -1,3 +1,5 @@
+
+
 export interface TeamInterface {
   image: FileList;
   name: string;
@@ -18,6 +20,7 @@ export interface InitialStateTeamsInterface {
   teamForPlayer: any;
   teamsList: TeamInterface[];
 }
+
 
 export interface RootTeamStateInterface {
   teams: InitialStateTeamsInterface;

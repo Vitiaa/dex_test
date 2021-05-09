@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { authAPI } from "../../api/requests/AuthApi";
+import { RegistrationInterface } from "../../api/dto/AuthDto/types";
 
 export const RegistrationUser = createAsyncThunk<
-  string,
-  { userName: string; login: string; password: string }
+  RegistrationInterface,
+  RegistrationInterface
 >("RegistrationUser", async ({ userName, login, password }, dispatch) => {
-  return await axios.post(`http://dev.trainee.dex-it.ru/api/Auth/SignUp`, {
-    userName,
-    login,
-    password,
-  });
+  const authData = authAPI.registration({ userName, login, password });
+  return authData;
 });
