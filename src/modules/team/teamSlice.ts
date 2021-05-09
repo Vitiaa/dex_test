@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { InitialStateTeamsInterface } from "./types";
+import { InitialStateTeamsInterface } from "../../api/dto/TeamDto/types";
 
 import {
   addTeam,

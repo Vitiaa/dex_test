@@ -15,9 +15,10 @@ export const CustomPagination: React.FC<{
   const query = useQuery();
   const history = useHistory();
   function onPageChange(data: any) {
-    let selected = data.selected;
+    let selected = data.selected + 1;
+    console.log(selected)
     if (selected) {
-      // query.delete("page");
+
 
       if (!query.has("page") && selected) {
         query.append("page", selected);
@@ -37,7 +38,7 @@ export const CustomPagination: React.FC<{
       activeClassName={style.activePage}
       activeLinkClassName={style.activePage}
       pageLinkClassName={style.page}
-      // initialPage={ 1}
+       initialPage={ query.get("page")? Number(query.get("page"))-1 : 0 }
       previousLabel={"<"}
       nextLabel={">"}
       breakLabel={"..."}

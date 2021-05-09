@@ -46,13 +46,15 @@ const AppWrapper = styled.div`
   z-index: 1;
   main {
     display: flex;
-    width: 1300px;
+    width: 100vw;
     //align-items: center;
     margin-top: 50px;
     margin-bottom: 30px;
     padding: 0px 50px;
+    
     @media (max-width: 700px) {
       padding: 0px 5px;
     }
+    
   }
 `;

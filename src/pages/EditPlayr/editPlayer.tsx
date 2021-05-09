@@ -11,7 +11,7 @@ import { getTeams, getTeamsList } from "../../modules/team/teamThynk";
 import { AdminLayout } from "../../ui/layouts/Layout";
 import { useParams } from "react-router";
 import { useTeamSelector } from "../../modules/team/teamSelector";
-import { PlayerInterface } from "../../modules/player/types";
+import { PlayerInterface } from "../../api/dto/PlayerDto/types";
 import { getPlayerPositions } from "../../modules/playerPositions/playerPositionsThunk";
 import { usePlayerPositionsSelector } from "../../modules/playerPositions/playerPositionsSelector";
 import { editPlayer } from "../../modules/player/plyaerThunk";
@@ -51,21 +51,24 @@ const EditPlayer: React.FC = () => {
   const Options = teamsList.map((item: any) => {
     return { value: item.id, label: item.name, color: "#9C9C9C" };
   });
+  const image = watch("image");
   useEffect(() => {}, []);
 
   const onSubmit = (data: any) => {
     data.id = Number(playerID);
-
+    if (data.image.length === 0 && defaultPlayer?.avatarUrl) {
+      data.avatarUrl = defaultPlayer?.avatarUrl;
+    }
     dispatch(
       editPlayer({
         ...data,
         position: data.position.value,
         team: data.team.value,
+        avatarUrl: data.avatarUrl,
         id: data.id,
       })
     );
   };
-  const image = watch("image");
 
   const convertBase64 = (imageFile: any) => {
     return new Promise((resolve, reject) => {
@@ -91,7 +94,6 @@ const EditPlayer: React.FC = () => {
     }
     asyncConvert();
   }, [image]);
-
 
   return (
     <FormWrapper>
@@ -146,7 +148,7 @@ const EditPlayer: React.FC = () => {
                   {...field}
                   options={positions}
                   initialValue={positions[0]}
-                   defaultValue={positions[0]}
+                  defaultValue={positions[0]}
                 />
               )}
             />
@@ -182,11 +184,12 @@ const EditPlayer: React.FC = () => {
 
             <Input
               {...register("birthday")}
-              defaultValue={`${defaultPlayer?.birthday.toString().slice(0,10)}`}
+              defaultValue={`${defaultPlayer?.birthday
+                .toString()
+                .slice(0, 10)}`}
               name="birthday"
               type="date"
             />
-
 
             <Input
               {...register("number", { max: 250, pattern: /^[0-9]+$/i })}

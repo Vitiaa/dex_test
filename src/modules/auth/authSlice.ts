@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { InitialStateAuthInterface } from "./types";
+import { InitialStateAuthInterface } from "../../api/dto/AuthDto/types";
 import { login } from "./authThunk";
 import { baseInstance } from "../../api/constants";
 

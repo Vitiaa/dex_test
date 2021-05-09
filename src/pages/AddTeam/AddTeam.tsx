@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../core/redux/store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../../ui/Button/CancelButton";
 import { addTeam } from "../../modules/team/teamThynk";
-import { TeamInterface } from "../../modules/team/types";
+import { TeamInterface } from "../../api/dto/TeamDto/types";
 import { ErrorMessage } from "../../ui/ErrorList/ErrorMesage";
 
 const AddTeam: React.FC = () => {

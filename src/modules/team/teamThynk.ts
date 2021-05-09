@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { TeamInterface } from "./types";
+import { TeamInterface } from "../../api/dto/TeamDto/types";
 import { addImage } from "../image/imageThunk";
 import axios from "axios";
 
@@ -27,7 +27,7 @@ export const getTeams = createAsyncThunk<
     name: string | undefined | unknown;
   },
   any
->("team/getTeams", async ({ pageNum, size, name }, { dispatch }) => {
+>("team/getTeams", async ({ pageNum=1, size=6, name }, { dispatch }) => {
   const { data } = await axios.get(
     `http://dev.trainee.dex-it.ru/api/Team/GetTeams`,
     {
@@ -83,7 +83,14 @@ export const addTeam = createAsyncThunk<string, TeamInterface, any>(
 export const editTeam = createAsyncThunk<string, TeamInterface, any>(
   "team/editTeam",
   async (params, { dispatch }) => {
-    const { payload } = await dispatch(addImage(params.image));
+    let img;
+    if (params.image.length !== 0) {
+      const { payload } = await dispatch(addImage(params.image));
+      img = payload;
+    } else {
+      img = params.imageUrl;
+    }
+
     const { data } = await axios.put(
       `http://dev.trainee.dex-it.ru/api/Team/Update?id=${params.id}`,
       {
@@ -91,7 +98,7 @@ export const editTeam = createAsyncThunk<string, TeamInterface, any>(
         foundationYear: Number(params.foundationYear),
         division: params.division,
         conference: params.conference,
-        imageUrl: payload,
+        imageUrl: img,
         id: params.id,
       },
       {

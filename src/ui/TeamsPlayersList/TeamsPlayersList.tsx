@@ -6,10 +6,10 @@ import { useAppDispatch } from "../../core/redux/store";
 import { getTeamsPlayers } from "../../modules/player/plyaerThunk";
 import { usePlayerSelector } from "../../modules/player/playerSelector";
 
-interface IProps2 {
+interface IProps {
   teamID: number;
 }
-const TeamsPlayersList: React.FC<IProps2> = ({ teamID }) => {
+const TeamsPlayersList: React.FC<IProps> = ({ teamID }) => {
   const dispatch = useAppDispatch();
   const players = usePlayerSelector((state) => state.players?.items);
   useEffect(() => {

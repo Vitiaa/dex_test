@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { InitialStateRegistrationInterface } from "./types";
-
 import { RegistrationUser } from "./registerThunck";
+import {InitialStateRegistrationInterface} from "../../api/dto/AuthDto/types";
 
 const initialState: InitialStateRegistrationInterface = {
   user: [],
