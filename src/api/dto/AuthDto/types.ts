@@ -19,8 +19,6 @@ export interface RegistrationInterface {
 }
 export interface AuthParams
     extends Pick<RegistrationInterface, "login" | "password"> {}
-export interface RegistrationParams
-    extends Pick<RegistrationInterface, "login" | "password" | "userName"> {}
 
 
 export interface InitialStateRegistrationInterface {

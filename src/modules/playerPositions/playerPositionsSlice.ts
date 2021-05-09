@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import {
-  InitialStatePlayerPositionsInterface,
-  RootPlayerPositionsStateInterface,
-} from "./types";
 import { getPlayerPositions } from "./playerPositionsThunk";
+import { InitialStatePlayerPositionsInterface } from "../../api/dto/PlayerDto/types";
 
 const initialState: InitialStatePlayerPositionsInterface = {
   items: [],
