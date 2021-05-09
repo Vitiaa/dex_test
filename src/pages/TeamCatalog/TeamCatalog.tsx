@@ -43,14 +43,20 @@ const TeamCatalog: React.FC = () => {
       : dispatch(
           getTeams({
             pageNum: query.get("page"),
-            size: query.get("size"),
+            size: query.get("size") ? query.get("size") : 6,
             name,
           })
         );
-  }, [query.get("searchText"), query.get("page"), query.get("size"), ,]);
-  useEffect(() => {
-    dispatch(getTeams({ pageNum: 1, size: 6, name }));
-  }, []);
+  }, [query.get("searchText"), query.get("page"), query.get("size")]);
+  // useEffect(() => {
+  //   dispatch(
+  //     getTeams({
+  //       pageNum: 1,
+  //       size: query.get("size") ? query.get("size") : 6,
+  //       name,
+  //     })
+  //   );
+  // }, []);
 
   const teamsList = useMemo(
     () =>
@@ -110,7 +116,6 @@ const CatalogWrapper = styled.div`
   background: #f6f6f6;
   display: flex;
   flex-direction: column;
-  max-width: 1140px;
   width: 100%;
   margin-top: 32px;
 

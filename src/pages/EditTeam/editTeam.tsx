@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../core/redux/store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../../ui/Button/CancelButton";
 import { editTeam } from "../../modules/team/teamThynk";
-import { TeamInterface } from "../../modules/team/types";
+import { TeamInterface } from "../../api/dto/TeamDto/types";
 import { useParams } from "react-router";
 import { useTeamSelector } from "../../modules/team/teamSelector";
 
@@ -18,7 +18,6 @@ const EditTeam: React.FC = () => {
     state.teams?.items.find((item: any) => item.id === Number(teamID))
   );
 
-
   const {
     register,
     handleSubmit,
@@ -26,13 +25,24 @@ const EditTeam: React.FC = () => {
     formState: { errors },
   } = useForm<TeamInterface>();
   const [imageUrl, setImageUrl] = useState("");
+  const image = watch("image");
+
   const dispatch = useAppDispatch();
   const onSubmit = (data: TeamInterface) => {
+    if (data.image.length === 0 && defaultTeam?.imageUrl) {
+      data.imageUrl = defaultTeam?.imageUrl;
+      console.log(data.imageUrl);
+    }
     data.id = Number(teamID);
-    // console.log(data);
-    dispatch(editTeam(data));
+    dispatch(
+      editTeam({
+        ...data,
+        imageUrl: data.imageUrl,
+        id: data.id,
+      })
+    );
   };
-  const image = watch("image");
+
   useEffect(() => {
     const imageFile = image;
     const convertBase64 = (imageFile: any) => {

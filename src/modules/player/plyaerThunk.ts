@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { PlayerInterface } from "./types";
+import { PlayerInterface } from "../../api/dto/PlayerDto/types";
 import { addImage } from "../image/imageThunk";
 
 // export const getPlayers = createAsyncThunk(
@@ -44,7 +44,6 @@ export const getPlayers = createAsyncThunk<
 export const getTeamsPlayers = createAsyncThunk(
   "player/getTeamsPlayers",
   async (teamID: number, dispatch) => {
-
     const { data } = await axios.get(
       `http://dev.trainee.dex-it.ru/api/Player/GetPlayers?TeamIds=${teamID}`,
       {
@@ -86,7 +85,13 @@ export const addPlayer = createAsyncThunk<string, PlayerInterface, any>(
 export const editPlayer = createAsyncThunk<string, PlayerInterface, any>(
   "player/editPlayer",
   async (params, { dispatch }) => {
-    const { payload } = await dispatch(addImage(params.image));
+    let img;
+    if (params.image.length !== 0) {
+      const { payload } = await dispatch(addImage(params.image));
+      img = payload;
+    } else {
+      img = params.avatarUrl;
+    }
     const { data } = await axios.put(
       `http://dev.trainee.dex-it.ru/api/Player/Update`,
       {
@@ -98,7 +103,7 @@ export const editPlayer = createAsyncThunk<string, PlayerInterface, any>(
         height: params.height,
         weight: params.weight,
         id: params.id,
-        avatarUrl: payload,
+        avatarUrl: img,
       },
       {
         headers: {

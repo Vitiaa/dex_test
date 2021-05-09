@@ -6,7 +6,7 @@ import {
   getPlayers,
   getTeamsPlayers,
 } from "./plyaerThunk";
-import { InitialStatePlayerInterface } from "./types";
+import { InitialStatePlayerInterface } from "../../api/dto/PlayerDto/types";
 
 const initialState: InitialStatePlayerInterface = {
   items: [],

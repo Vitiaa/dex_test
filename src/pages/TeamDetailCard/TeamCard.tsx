@@ -85,7 +85,7 @@ const TeamCardBackground = styled.div`
 const TeamCardWrapper = styled.div`
   display: flex;
   margin: auto;
-  max-width: 1140px;
+  width: 100%;
 
   width: 100%;
   transform: rotate(-180deg);

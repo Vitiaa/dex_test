@@ -44,7 +44,7 @@ const PlayerCatalog: React.FC = () => {
       ? dispatch(
           getPlayers({
             pageNum: query.get("page"),
-            size: query.get("size"),
+            size: query.get("size") ? query.get("size") : 6,
             name: query.get("searchText"),
             TeamIds: query.getAll("TeamIds").map(Number),
           })
@@ -52,7 +52,7 @@ const PlayerCatalog: React.FC = () => {
       : dispatch(
           getPlayers({
             pageNum: query.get("page"),
-            size: query.get("size"),
+            size: query.get("size") ? query.get("size") : 6,
             name,
             TeamIds: query.getAll("TeamIds").map(Number),
           })
@@ -68,7 +68,7 @@ const PlayerCatalog: React.FC = () => {
     dispatch(
       getPlayers({
         pageNum: query.get("page"),
-        size: query.get("size") !== null ? query.get("size") : 6,
+        size: query.get("size") ? query.get("size") : 6,
         name,
         TeamIds: [],
       })
@@ -108,12 +108,19 @@ const PlayerCatalog: React.FC = () => {
           <SizeSelect
             initialValue={size}
             defaultValue={
-              query.get("size") == 6
-                ? sizeOptions[0]
-                : query.get("size") == 12
-                ? sizeOptions[1]
-                : query.get("size") == 24
-                ? sizeOptions[2]
+              // query.get("size") == 6
+              //   ? sizeOptions[0]
+              //   : query.get("size") == 12
+              //   ? sizeOptions[1]
+              //   : query.get("size") == 24
+              //   ? sizeOptions[2]
+              //   : sizeOptions[0]
+              query.get("size") !== null
+                ? {
+                    value: Number(query.get("size")),
+                    label: query.get("size"),
+                    color: "#9C9C9C",
+                  }
                 : sizeOptions[0]
             }
             options={sizeOptions}
@@ -130,7 +137,7 @@ const CatalogWrapper = styled.div`
   background: #f6f6f6;
   display: flex;
   flex-direction: column;
-  max-width: 1140px;
+
   width: 100%;
   margin-top: 32px;
 

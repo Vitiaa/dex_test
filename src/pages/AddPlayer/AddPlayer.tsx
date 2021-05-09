@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../core/redux/store";
 import CardHeader from "../PlayerDetailCard/CardHeader";
 import CancelButton from "../../ui/Button/CancelButton";
 import { addPlayer } from "../../modules/player/plyaerThunk";
-import { PlayerInterface } from "../../modules/player/types";
+import { PlayerInterface } from "../../api/dto/PlayerDto/types";
 import { getPlayerPositions } from "../../modules/playerPositions/playerPositionsThunk";
 import { useTeamSelector } from "../../modules/team/teamSelector";
 import { usePlayerPositionsSelector } from "../../modules/playerPositions/playerPositionsSelector";
